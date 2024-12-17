@@ -5,8 +5,8 @@ import { restaurants } from "../materials/mock";
 const root = document.getElementById("root");
 const reactRoot = createRoot(root);
 reactRoot.render(
-  <div className="restaurants-list">
-    <div className="restaurant-dishoom">
+  <div>
+    <div>
       <h1>"{restaurants[0].name}"</h1>
       <h3>Меню:</h3>
       <ul>
@@ -24,7 +24,7 @@ reactRoot.render(
         </li>
       </ul>
     </div>
-    <div className="restaurant-homeslice">
+    <div>
       <h1>"{restaurants[1].name}"</h1>
       <h3>Меню:</h3>
       <ul>
@@ -44,7 +44,7 @@ reactRoot.render(
         </li>
       </ul>
     </div>
-    <div className="restaurant-fabrique">
+    <div>
       <h1>"{restaurants[2].name}"</h1>
       <h3>Меню:</h3>
       <ul>
@@ -59,7 +59,7 @@ reactRoot.render(
         </li>
       </ul>
     </div>
-    <div className="restaurant-flat-iron">
+    <div>
       <h1>"{restaurants[3].name}"</h1>
       <h3>Меню:</h3>
       <ul>
@@ -78,27 +78,3 @@ reactRoot.render(
     </div>
   </div>
 );
-
-/* reactRoot.render(
-  <div className="restaurants-list">
-    {restaurants.map((restaurant) => (
-      <div className="restaurant">
-        <h1>{restaurant.name}</h1>
-        <h3>Меню:</h3>
-        <ul>
-          {restaurant.menu.map((menu) => (
-            <li>{menu.name}</li>
-          ))}
-        </ul>
-        <h3>Отзывы:</h3>
-        <ul>
-          {restaurant.reviews.map((review) => (
-            <li>
-              {review.user}: {review.text}
-            </li>
-          ))}
-        </ul>
-      </div>
-    ))}
-  </div>
-); */
