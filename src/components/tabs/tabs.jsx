@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { restaurants } from "../../../materials/mock";
-import { Headrestaurant } from "../headrestaurant/headrestaurant";
+import { Restaurant } from "../restaurant/restaurant";
 export const Tabs = () => {
-  const [activeTab, setActiveTab] = useState(
-    "a757a0e9-03c1-4a2a-b384-8ac21dbe2fb2"
-  );
+  const [activeTab, setActiveTab] = useState(restaurants[0].id);
 
   const handleClick = (tabId) => {
     setActiveTab(tabId);
@@ -27,7 +25,7 @@ export const Tabs = () => {
         ))}
       </div>
 
-      {activeRestaurant && <Headrestaurant headrestaurant={activeRestaurant} />}
+      {activeRestaurant && <Restaurant restaurant={activeRestaurant} />}
     </div>
   );
 };

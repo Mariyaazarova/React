@@ -1,6 +1,6 @@
 import { Tabs } from "../tabs/tabs";
 
-export const HeadrestaurantsPage = () => {
+export const RestaurantsPage = () => {
   return (
     <div>
       <h1>Headrestaurants Page</h1>
