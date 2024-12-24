@@ -13,7 +13,7 @@ export const ReviewForm = () => {
   const { name, text, rating } = form;
 
   return (
-    <form onSubmit={(event) => event.preventDefault}>
+    <form onSubmit={(event) => event.preventDefault()}>
       <h3>Комментарий:</h3>
       <div>
         <span>Ваше имя: </span>

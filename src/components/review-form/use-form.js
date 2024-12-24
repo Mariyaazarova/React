@@ -18,10 +18,21 @@ const reducer = (state, { type, payload }) => {
       return { ...state, name: payload };
     case SET_TEXT_ACTION:
       return { ...state, text: payload };
+
     case INCREMENT_RATING_ACTION:
-      return { ...state, rating: Math.min(state.rating + 1, 5) };
+      if (state.rating < 5) {
+        return { ...state, rating: state.rating + 1 };
+      } else {
+        return { ...state, rating: 5 };
+      }
+
     case DECREMENT_RATING_ACTION:
-      return { ...state, rating: Math.max(state.rating - 1, 1) };
+      if (state.rating > 0) {
+        return { ...state, rating: state.rating - 1 };
+      } else {
+        return { ...state, rating: 0 };
+      }
+
     case RESET_ACTION:
       return DEFAULT_FROM_VALUE;
     default:
