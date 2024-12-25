@@ -1,4 +1,4 @@
-import { ProgressBar } from "../scroll/scroll";
+import { ProgressBar } from "../progress-bar/progress-bar";
 
 export const Layout = ({ children, sidebar }) => {
   return (

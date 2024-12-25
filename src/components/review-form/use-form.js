@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 
-const DEFAULT_FROM_VALUE = {
+const DEFAULT_FORM_VALUE = {
   name: "",
   text: "",
   rating: 5,
@@ -13,35 +13,26 @@ const DECREMENT_RATING_ACTION = "DECREMENT_RATING_ACTION";
 const RESET_ACTION = "DEFAULT_FROM_VALUE";
 
 const reducer = (state, { type, payload }) => {
+  const newRatingMin = state.rating < 5 ? state.rating + 1 : 5;
+  const newRatingMax = state.rating > 0 ? state.rating - 1 : 0;
   switch (type) {
     case SET_NAME_ACTION:
       return { ...state, name: payload };
     case SET_TEXT_ACTION:
       return { ...state, text: payload };
-
     case INCREMENT_RATING_ACTION:
-      if (state.rating < 5) {
-        return { ...state, rating: state.rating + 1 };
-      } else {
-        return { ...state, rating: 5 };
-      }
-
+      return { ...state, rating: newRatingMin };
     case DECREMENT_RATING_ACTION:
-      if (state.rating > 0) {
-        return { ...state, rating: state.rating - 1 };
-      } else {
-        return { ...state, rating: 0 };
-      }
-
+      return { ...state, rating: newRatingMax };
     case RESET_ACTION:
-      return DEFAULT_FROM_VALUE;
+      return DEFAULT_FORM_VALUE;
     default:
       return state;
   }
 };
 
 export const useForm = () => {
-  const [form, dispatch] = useReducer(reducer, DEFAULT_FROM_VALUE);
+  const [form, dispatch] = useReducer(reducer, DEFAULT_FORM_VALUE);
 
   const setName = (name) => {
     dispatch({ type: SET_NAME_ACTION, payload: name });
@@ -52,11 +43,9 @@ export const useForm = () => {
   const incrementRating = () => {
     dispatch({ type: INCREMENT_RATING_ACTION });
   };
-
   const decrementRating = () => {
     dispatch({ type: DECREMENT_RATING_ACTION });
   };
-
   const clearForm = () => {
     dispatch({ type: RESET_ACTION });
   };
