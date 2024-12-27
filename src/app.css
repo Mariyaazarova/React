@@ -1,0 +1,44 @@
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  font-family: "Be Vietnam Pro", sans-serif;
+}
+
+:root {
+  box-sizing: border-box;
+  --black: #000;
+  --white: #fff;
+  --orange: orange;
+  --grey: rgb(204 204 204 / 67%);
+  --darkGrey: #060807;
+}
+
+html {
+  font-size: 16px;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  height: 100%;
+}
+
+main {
+  padding-bottom: 50px;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { restaurants } from "../../../materials/mock";
 import { Restaurant } from "../restaurant/restaurant";
+import styles from "./tabs.module.css";
+import { Container } from "../container/container";
 export const Tabs = () => {
   const [activeTab, setActiveTab] = useState(restaurants[0].id);
 
@@ -14,18 +16,25 @@ export const Tabs = () => {
 
   return (
     <div>
-      <div>
-        {restaurants.map((restaurant) => (
-          <button
-            key={restaurant.id}
-            onClick={() => handleClick(restaurant.id)}
-          >
-            {restaurant.name}
-          </button>
-        ))}
+      <div className={styles.tabsHeader}>
+        <Container>
+          <div className={styles.tabsContent}>
+            {restaurants.map((restaurant) => (
+              <button
+                className={styles.buttonTabs}
+                key={restaurant.id}
+                onClick={() => handleClick(restaurant.id)}
+              >
+                {restaurant.name}
+              </button>
+            ))}
+          </div>
+        </Container>
       </div>
 
-      {activeRestaurant && <Restaurant restaurant={activeRestaurant} />}
+      {activeRestaurant && (
+        <Restaurant key={activeRestaurant.id} restaurant={activeRestaurant} />
+      )}
     </div>
   );
 };

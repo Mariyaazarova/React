@@ -1,0 +1,15 @@
+.reviewFormRating {
+  display: flex;
+}
+
+.reviewFormClear {
+  height: 40px;
+  border: 1px solid var(--grey);
+  border-radius: 4px;
+  font-weight: 700;
+  color: var(--dark-grey);
+  background-color: transparent;
+  padding-left: 20px;
+  padding-right: 20px;
+  cursor: pointer;
+}
