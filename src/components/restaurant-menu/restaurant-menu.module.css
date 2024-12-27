@@ -1,0 +1,25 @@
+.menuCart {
+  padding: 20px 26px;
+  margin-bottom: 12px;
+  border: 1px solid var(--grey);
+  box-shadow: 0 0 10px var(--grey);
+  border-radius: 10px;
+}
+
+.light {
+  color: var(--black);
+  background-color: var(--white);
+}
+
+.dark {
+  color: var(--white);
+  background-color: var(--darkGrey);
+}
+
+.menuContent {
+  display: flex;
+}
+
+.dishCounter {
+  margin-left: 80px;
+}

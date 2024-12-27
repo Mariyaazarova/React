@@ -1,13 +1,14 @@
+import { Footer } from "../footer/footer";
+import { Header } from "../header/header";
 import { ProgressBar } from "../progress-bar/progress-bar";
 
-export const Layout = ({ children, sidebar }) => {
+export const Layout = ({ children }) => {
   return (
     <div>
       <ProgressBar />
-      <header>Some header</header>
+      <Header />
       {children}
-      {sidebar}
-      <footer> Some footer</footer>
+      <Footer />
     </div>
   );
 };

@@ -1,0 +1,18 @@
+.buttonCounter {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--grey);
+  background-color: var(--grey);
+  border-radius: 2px;
+  margin: 2px;
+  cursor: pointer;
+}
+
+.valueCounter {
+  text-align: center;
+  color: #898989;
+  font-weight: 600;
+  margin-bottom: 5px;
+  font-size: 18px;
+  line-height: 28px;
+}
