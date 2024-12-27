@@ -2,6 +2,7 @@ import { Menu } from "./menu-list";
 import { DishCounter } from "../dish-counter/dish-counter";
 import styles from "./restaurant-menu.module.css";
 import classNames from "classnames";
+
 export const RestaurantMenu = ({ restaurant, viewVariant = "light" }) => {
   const { menu } = restaurant;
   return (
