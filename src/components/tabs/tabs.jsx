@@ -3,6 +3,7 @@ import { restaurants } from "../../../materials/mock";
 import { Restaurant } from "../restaurant/restaurant";
 import styles from "./tabs.module.css";
 import { Container } from "../container/container";
+
 export const Tabs = () => {
   const [activeTab, setActiveTab] = useState(restaurants[0].id);
 
