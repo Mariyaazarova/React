@@ -10,5 +10,5 @@ reactRoot.render(
     <AuthContextProvider>
       <App />
     </AuthContextProvider>
-  </ThemeContextProvider>
+  </ThemeContextProvider>,
 );

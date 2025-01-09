@@ -1,20 +1,20 @@
 .switchButton {
-    margin-right: 32px;
-    padding-left: 20px;
-    padding-right: 20px;
-    font-size: 14px;
-    line-height: 28px;
-    background-color: transparent;
-    transition: all .2s;
-    cursor: pointer;
+  margin-right: 32px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 14px;
+  line-height: 28px;
+  background-color: transparent;
+  transition: all 0.2s;
+  cursor: pointer;
 }
 
 .light {
-    color: var(--white);
-    border: 1px solid var(--white);
+  color: var(--white);
+  border: 1px solid var(--white);
 }
 
 .dark {
-    color: var(--orange);
-    border: 1px solid var(--orange);
+  color: var(--orange);
+  border: 1px solid var(--orange);
 }

@@ -6,12 +6,9 @@ export const SwitchThemeButton = () => {
   const { theme, setTheme } = useTheme();
 
   const toggleTheme = () => {
-    if (theme === "light") {
-      setTheme("dark");
-    } else {
-      setTheme("light");
-    }
+    setTheme(theme === "light" ? "dark" : "light");
   };
+
   return (
     <button
       className={classNames(styles.switchButton, {

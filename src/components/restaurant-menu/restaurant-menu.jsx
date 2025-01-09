@@ -9,7 +9,7 @@ export const RestaurantMenu = ({ restaurant }) => {
   const { menu } = restaurant;
   const { theme } = useTheme();
   const { auth } = useAuth();
-  
+
   return (
     <div
       className={classNames(styles.menuCart, {

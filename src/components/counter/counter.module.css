@@ -11,10 +11,9 @@
 
 .valueCounter {
   text-align: center;
-  color:var(--grey);
+  color: var(--grey);
   font-weight: 600;
   margin-bottom: 5px;
   font-size: 18px;
   line-height: 28px;
 }
-

@@ -6,7 +6,8 @@ import { useTheme } from "../theme-context/use-theme";
 
 export const RestaurantReviews = ({ restaurant }) => {
   const { reviews } = restaurant;
-  const {theme}=useTheme();
+  const { theme } = useTheme();
+
   return (
     <div>
       <div

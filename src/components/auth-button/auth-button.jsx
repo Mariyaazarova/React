@@ -8,7 +8,7 @@ export const AuthButton = () => {
   return (
     <div>
       <button className={styles.authButton} onClick={toggleAuth}>
-        {isAuthorized ? `${auth.name}`: "Login"}
+        {isAuthorized ? auth.name : "Login"}
       </button>
     </div>
   );

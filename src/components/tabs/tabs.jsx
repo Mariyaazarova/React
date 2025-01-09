@@ -12,7 +12,7 @@ export const Tabs = () => {
   };
 
   const activeRestaurant = restaurants.find(
-    (restaurant) => restaurant.id === activeTab
+    (restaurant) => restaurant.id === activeTab,
   );
 
   return (
