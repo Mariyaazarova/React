@@ -5,8 +5,7 @@ import classNames from "classnames";
 import { useTheme } from "../theme-context/use-theme";
 import { useAuth } from "../auth-context/use-auth";
 
-export const RestaurantMenu = ({ restaurant }) => {
-  const { menu } = restaurant;
+export const RestaurantMenu = ({ menu }) => {
   const { theme } = useTheme();
   const { auth } = useAuth();
 
@@ -19,7 +18,7 @@ export const RestaurantMenu = ({ restaurant }) => {
     >
       <h3>Menu:</h3>
       <div className={styles.menuContent}>
-        <div>{!!menu.length && <Menu menu={menu} />}</div>
+        <div>{menu.length > 0 && <Menu menu={menu} />}</div>
         <div className={styles.dishCounter}>
           {auth.isAuthorized && <DishCounter />}
         </div>

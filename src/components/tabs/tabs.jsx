@@ -1,18 +1,27 @@
 import { useState } from "react";
-import { restaurants } from "../../../materials/mock";
 import { Restaurant } from "../restaurant/restaurant";
 import styles from "./tabs.module.css";
 import { Container } from "../container/container";
+import { useSelector } from "react-redux";
+import {
+  selectorHeadrestaurantsIds,
+  selectorHeadrestaurantsById,
+} from "../../redux/entities/headrestaurants/headrestaurants-slice";
 
 export const Tabs = () => {
-  const [activeTab, setActiveTab] = useState(restaurants[0].id);
+  const headrestaurantsIds = useSelector(selectorHeadrestaurantsIds);
+  const [activeTab, setActiveTab] = useState(headrestaurantsIds[0]);
+
+  const restaurants = useSelector((state) =>
+    headrestaurantsIds.map((id) => selectorHeadrestaurantsById(state, id)),
+  );
 
   const handleClick = (tabId) => {
     setActiveTab(tabId);
   };
 
-  const activeRestaurant = restaurants.find(
-    (restaurant) => restaurant.id === activeTab,
+  const activeRestaurant = useSelector((state) =>
+    selectorHeadrestaurantsById(state, activeTab),
   );
 
   return (
@@ -22,7 +31,7 @@ export const Tabs = () => {
           <div className={styles.tabsContent}>
             {restaurants.map((restaurant) => (
               <button
-                className={styles.buttonTabs}
+                className={`${styles.buttonTabs} ${restaurant.id === activeTab ? styles.active : ""}`}
                 key={restaurant.id}
                 onClick={() => handleClick(restaurant.id)}
               >
@@ -34,7 +43,7 @@ export const Tabs = () => {
       </div>
 
       {activeRestaurant && (
-        <Restaurant key={activeRestaurant.id} restaurant={activeRestaurant} />
+        <Restaurant key={activeRestaurant.id} id={activeRestaurant.id} />
       )}
     </div>
   );

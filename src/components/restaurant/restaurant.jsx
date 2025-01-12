@@ -2,20 +2,36 @@ import { useAuth } from "../auth-context/use-auth";
 import { Container } from "../container/container";
 import { RestaurantMenu } from "../restaurant-menu/restaurant-menu";
 import { RestaurantReviews } from "../restaurant-reviews/restaurant-reviews";
+import { useSelector } from "react-redux";
+import { selectorDishById } from "../../redux/entities/dishes/dishes-slice";
+import { selectorReviewById } from "../../redux/entities/reviews/reviews-slice";
+import { selectorHeadrestaurantsById } from "../../redux/entities/headrestaurants/headrestaurants-slice";
 
-export const Restaurant = ({ restaurant }) => {
-  const { name } = restaurant;
+export const Restaurant = ({ id }) => {
+  const headrestaurant = useSelector((state) =>
+    selectorHeadrestaurantsById(state, id),
+  );
+
   const { auth } = useAuth();
+  const { menu: dishIds, reviews: reviewIds } = headrestaurant;
 
-  if (!name) {
+  const dishes = useSelector((state) =>
+    dishIds.map((dishId) => selectorDishById(state, dishId)),
+  );
+
+  const reviews = useSelector((state) =>
+    reviewIds.map((reviewId) => selectorReviewById(state, reviewId)),
+  );
+
+  if (!headrestaurant || !headrestaurant.name) {
     return null;
   }
 
   return (
     <Container>
-      <h2>{name}</h2>
-      <RestaurantMenu restaurant={restaurant} />
-      {auth.isAuthorized && <RestaurantReviews restaurant={restaurant} />}
+      <h2>{headrestaurant.name}</h2>
+      <RestaurantMenu menu={dishes} />
+      {auth.isAuthorized && <RestaurantReviews reviews={reviews} />}
     </Container>
   );
 };

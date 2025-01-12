@@ -4,8 +4,7 @@ import styles from "./restaurant-reviews.module.css";
 import classNames from "classnames";
 import { useTheme } from "../theme-context/use-theme";
 
-export const RestaurantReviews = ({ restaurant }) => {
-  const { reviews } = restaurant;
+export const RestaurantReviews = ({ reviews }) => {
   const { theme } = useTheme();
 
   return (
