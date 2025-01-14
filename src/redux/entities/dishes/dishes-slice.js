@@ -13,9 +13,11 @@ export const dishesSlice = createSlice({
   name: "dishes",
   initialState,
   selectors: {
-    selectorDishesIds: (state) => state.ids,
-    selectorDishById: (state, id) => state.entities[id],
+    selectDishesIds: (state) => state.ids,
+    selectDishById: (state, id) => state.entities[id],
+    selectDishesByIds: (state, ids) => ids.map((item) => state.entities[item]),
   },
 });
 
-export const { selectorDishById, selectorDishesIds } = dishesSlice.selectors;
+export const { selectDishesIds, selectDishById, selectDishesByIds } =
+  dishesSlice.selectors;
