@@ -5,8 +5,7 @@ import classNames from "classnames";
 import { useTheme } from "../theme-context/use-theme";
 import { useAuth } from "../auth-context/use-auth";
 
-export const RestaurantMenu = ({ restaurant }) => {
-  const { menu } = restaurant;
+export const RestaurantMenu = ({ menu }) => {
   const { theme } = useTheme();
   const { auth } = useAuth();
 

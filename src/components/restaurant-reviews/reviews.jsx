@@ -1,8 +1,10 @@
+import { Review } from "./review";
+
 export const Reviews = ({ reviews }) => {
   return (
     <ul>
       {reviews.map((review) => (
-        <li key={review.id}>{review.text}</li>
+        <Review key={review.id} review={review} />
       ))}
     </ul>
   );
