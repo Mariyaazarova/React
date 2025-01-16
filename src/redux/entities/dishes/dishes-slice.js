@@ -16,10 +16,7 @@ export const dishesSlice = createSlice({
     selectDishesIds: (state) => state.ids,
     selectDishById: (state, id) => state.entities[id],
     selectDishesByIds: (state, ids) => {
-      if (Array.isArray(ids)) {
-        return ids.map((item) => state.entities[item]);
-      }
-      return [];
+      return Array.isArray(ids) ? ids.map((item) => state.entities[item]) : [];
     },
   },
 });

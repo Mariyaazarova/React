@@ -16,10 +16,7 @@ export const reviewsSlice = createSlice({
     selectReviewsIds: (state) => state.ids,
     selectReviewsById: (state, id) => state.entities[id],
     selectReviewsByIds: (state, ids) => {
-      if (Array.isArray(ids)) {
-        return ids.map((item) => state.entities[item]);
-      }
-      return [];
+      return Array.isArray(ids) ? ids.map((item) => state.entities[item]) : [];
     },
   },
 });

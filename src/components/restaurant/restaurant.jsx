@@ -11,13 +11,8 @@ export const Restaurant = ({ id }) => {
 
   const { menu: dishIds, reviews: reviewIds } = restaurant;
 
-  const dishes = useSelector((state) =>
-    Array.isArray(dishIds) ? selectDishesByIds(state, dishIds) : []
-  );
-
-  const reviews = useSelector((state) =>
-    Array.isArray(reviewIds) ? selectReviewsByIds(state, reviewIds) : []
-  );
+  const dishes = useSelector((state) => selectDishesByIds(state, dishIds));
+  const reviews = useSelector((state) => selectReviewsByIds(state, reviewIds));
 
   if (!restaurant || !restaurant.name) {
     return null;
