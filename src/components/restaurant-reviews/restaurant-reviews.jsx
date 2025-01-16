@@ -18,11 +18,8 @@ export const RestaurantReviews = ({ reviews }) => {
         })}
       >
         <h3>Reviews:</h3>
-        <div>
-          <div>{!!reviews.length && <Reviews reviews={reviews} />}</div>
-        </div>
+        <div>{!!reviews.length && <Reviews reviews={reviews} />}</div>
       </div>
-
       <div className={styles.reviewForm}>
         {auth.isAuthorized && <ReviewForm />}
       </div>

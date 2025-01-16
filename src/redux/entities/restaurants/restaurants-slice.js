@@ -10,13 +10,16 @@ export const initialState = {
 };
 
 export const restaurantsSlice = createSlice({
-  name: "headrestaurants",
+  name: "restaurants",
   initialState,
   selectors: {
     selectRestaurantsIds: (state) => state.ids,
     selectRestaurantById: (state, id) => state.entities[id],
+    selectRestaurants: (state) => {
+      return Object.values(state.entities);
+    },
   },
 });
 
-export const { selectRestaurantsIds, selectRestaurantById } =
+export const { selectRestaurantsIds, selectRestaurantById, selectRestaurants } =
   restaurantsSlice.selectors;

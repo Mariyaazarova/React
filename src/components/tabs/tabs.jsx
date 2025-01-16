@@ -5,17 +5,13 @@ import { Container } from "../container/container";
 import { useSelector } from "react-redux";
 import classNames from "classnames";
 import {
-  selectRestaurantsIds,
   selectRestaurantById,
+  selectRestaurants,
 } from "../../redux/entities/restaurants/restaurants-slice";
 
 export const Tabs = () => {
-  const restaurantsIds = useSelector(selectRestaurantsIds);
-  const [activeTab, setActiveTab] = useState(restaurantsIds[0]);
-
-  const restaurants = useSelector((state) =>
-    restaurantsIds.map((id) => selectRestaurantById(state, id))
-  );
+  const restaurants = useSelector(selectRestaurants);
+  const [activeTab, setActiveTab] = useState(restaurants[0]?.id || null);
 
   const handleClick = (tabId) => {
     setActiveTab(tabId);
