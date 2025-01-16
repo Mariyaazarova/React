@@ -1,12 +1,13 @@
 import { ReviewForm } from "../review-form/review-form";
-import { Reviews } from "./reviews-list";
+import { useAuth } from "../auth-context/use-auth";
+import { Reviews } from "./reviews";
 import styles from "./restaurant-reviews.module.css";
 import classNames from "classnames";
 import { useTheme } from "../theme-context/use-theme";
 
-export const RestaurantReviews = ({ restaurant }) => {
-  const { reviews } = restaurant;
+export const RestaurantReviews = ({ reviews }) => {
   const { theme } = useTheme();
+  const { auth } = useAuth();
 
   return (
     <div>
@@ -19,9 +20,8 @@ export const RestaurantReviews = ({ restaurant }) => {
         <h3>Reviews:</h3>
         <div>{!!reviews.length && <Reviews reviews={reviews} />}</div>
       </div>
-
       <div className={styles.reviewForm}>
-        <ReviewForm />
+        {auth.isAuthorized && <ReviewForm />}
       </div>
     </div>
   );
