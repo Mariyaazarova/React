@@ -13,10 +13,16 @@ export const reviewsSlice = createSlice({
   name: "reviews",
   initialState,
   selectors: {
-    selectorReviewsIds: (state) => state.ids,
-    selectorReviewById: (state, id) => state.entities[id],
+    selectReviewsIds: (state) => state.ids,
+    selectReviewsById: (state, id) => state.entities[id],
+    selectReviewsByIds: (state, ids) => {
+      if (Array.isArray(ids)) {
+        return ids.map((item) => state.entities[item]);
+      }
+      return [];
+    },
   },
 });
 
-export const { selectorReviewById, selectorReviewsIds } =
+export const { selectReviewsById, selectReviewsIds, selectReviewsByIds } =
   reviewsSlice.selectors;

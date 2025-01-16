@@ -18,7 +18,7 @@ export const RestaurantMenu = ({ menu }) => {
     >
       <h3>Menu:</h3>
       <div className={styles.menuContent}>
-        <div>{menu.length > 0 && <Menu menu={menu} />}</div>
+        <div>{!!menu.length && <Menu menu={menu} />}</div>
         <div className={styles.dishCounter}>
           {auth.isAuthorized && <DishCounter />}
         </div>

@@ -1,37 +1,33 @@
-import { useAuth } from "../auth-context/use-auth";
 import { Container } from "../container/container";
 import { RestaurantMenu } from "../restaurant-menu/restaurant-menu";
 import { RestaurantReviews } from "../restaurant-reviews/restaurant-reviews";
 import { useSelector } from "react-redux";
-import { selectorDishById } from "../../redux/entities/dishes/dishes-slice";
-import { selectorReviewById } from "../../redux/entities/reviews/reviews-slice";
-import { selectorHeadrestaurantsById } from "../../redux/entities/headrestaurants/headrestaurants-slice";
+import { selectDishesByIds } from "../../redux/entities/dishes/dishes-slice";
+import { selectReviewsByIds } from "../../redux/entities/reviews/reviews-slice";
+import { selectRestaurantById } from "../../redux/entities/restaurants/restaurants-slice";
 
 export const Restaurant = ({ id }) => {
-  const headrestaurant = useSelector((state) =>
-    selectorHeadrestaurantsById(state, id),
-  );
+  const restaurant = useSelector((state) => selectRestaurantById(state, id));
 
-  const { auth } = useAuth();
-  const { menu: dishIds, reviews: reviewIds } = headrestaurant;
+  const { menu: dishIds, reviews: reviewIds } = restaurant;
 
   const dishes = useSelector((state) =>
-    dishIds.map((dishId) => selectorDishById(state, dishId)),
+    Array.isArray(dishIds) ? selectDishesByIds(state, dishIds) : []
   );
 
   const reviews = useSelector((state) =>
-    reviewIds.map((reviewId) => selectorReviewById(state, reviewId)),
+    Array.isArray(reviewIds) ? selectReviewsByIds(state, reviewIds) : []
   );
 
-  if (!headrestaurant || !headrestaurant.name) {
+  if (!restaurant || !restaurant.name) {
     return null;
   }
 
   return (
     <Container>
-      <h2>{headrestaurant.name}</h2>
+      <h2>{restaurant.name}</h2>
       <RestaurantMenu menu={dishes} />
-      {auth.isAuthorized && <RestaurantReviews reviews={reviews} />}
+      <RestaurantReviews reviews={reviews} />
     </Container>
   );
 };
