@@ -21,7 +21,7 @@ export const Restaurant = ({ id }) => {
   return (
     <Container>
       <h2>{restaurant.name}</h2>
-      <RestaurantMenu menu={dishes} />
+      <RestaurantMenu menu={dishes} id={id} />
       <RestaurantReviews reviews={reviews} />
     </Container>
   );

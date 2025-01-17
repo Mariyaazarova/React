@@ -21,5 +21,7 @@ export const dishesSlice = createSlice({
   },
 });
 
-export const { selectDishesById, selectDishesIds, selectDishesByIds } =
+export const { selectDishById, selectDishesIds, selectDishesByIds } =
   dishesSlice.selectors;
+console.log("Normalized Dishes:", normalizedDishes);
+console.log("Initial State Entities:", initialState.entities);
