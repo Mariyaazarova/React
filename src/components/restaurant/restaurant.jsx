@@ -1,18 +1,14 @@
 import { Container } from "../container/container";
-import { RestaurantMenu } from "../restaurant-menu/restaurant-menu";
-import { RestaurantReviews } from "../restaurant-reviews/restaurant-reviews";
 import { useSelector } from "react-redux";
-import { selectDishesByIds } from "../../redux/entities/dishes/dishes-slice";
-import { selectReviewsByIds } from "../../redux/entities/reviews/reviews-slice";
 import { selectRestaurantById } from "../../redux/entities/restaurants/restaurants-slice";
+import { useParams } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
-export const Restaurant = ({ id }) => {
-  const restaurant = useSelector((state) => selectRestaurantById(state, id));
-
-  const { menu: dishIds, reviews: reviewIds } = restaurant;
-
-  const dishes = useSelector((state) => selectDishesByIds(state, dishIds));
-  const reviews = useSelector((state) => selectReviewsByIds(state, reviewIds));
+export const Restaurant = () => {
+  const { restaurantId } = useParams();
+  const restaurant = useSelector((state) =>
+    selectRestaurantById(state, restaurantId)
+  );
 
   if (!restaurant || !restaurant.name) {
     return null;
@@ -21,8 +17,15 @@ export const Restaurant = ({ id }) => {
   return (
     <Container>
       <h2>{restaurant.name}</h2>
-      <RestaurantMenu menu={dishes} id={id} />
-      <RestaurantReviews reviews={reviews} />
+      <div>
+        <div>
+          <NavLink to={`/restaurants/${restaurantId}/menu`}>Menu</NavLink>
+        </div>
+        <div>
+          <NavLink to={`/restaurants/${restaurantId}/reviews`}>Reviews</NavLink>
+        </div>
+      </div>
+      <Outlet />
     </Container>
   );
 };

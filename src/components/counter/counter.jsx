@@ -6,17 +6,17 @@ export const Counter = ({ value, increment, decrement }) => {
       <button
         className={styles.buttonCounter}
         type="button"
-        onClick={increment}
+        onClick={decrement}
       >
-        +
+        -
       </button>
       {value}
       <button
         className={styles.buttonCounter}
         type="button"
-        onClick={decrement}
+        onClick={increment}
       >
-        -
+        +
       </button>
     </div>
   );
