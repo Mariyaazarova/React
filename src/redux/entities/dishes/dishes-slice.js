@@ -13,7 +13,6 @@ export const dishesSlice = createSlice({
   name: "dishes",
   initialState,
   selectors: {
-    selectDishesIds: (state) => state.ids,
     selectDishById: (state, id) => state.entities[id],
     selectDishesByIds: (state, ids) => {
       return Array.isArray(ids) ? ids.map((item) => state.entities[item]) : [];
@@ -21,5 +20,4 @@ export const dishesSlice = createSlice({
   },
 });
 
-export const { selectDishesById, selectDishesIds, selectDishesByIds } =
-  dishesSlice.selectors;
+export const { selectDishById, selectDishesByIds } = dishesSlice.selectors;

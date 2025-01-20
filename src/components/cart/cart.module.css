@@ -1,5 +1,6 @@
-.reviewsCart {
+.cart {
   padding: 20px 26px;
+  margin-bottom: 12px;
   border: 1px solid var(--grey);
   box-shadow: 0 0 10px var(--grey);
   border-radius: 10px;

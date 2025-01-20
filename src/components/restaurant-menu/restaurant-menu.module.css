@@ -4,6 +4,13 @@
   border: 1px solid var(--grey);
   box-shadow: 0 0 10px var(--grey);
   border-radius: 10px;
+  margin-top: 10px;
+}
+
+.menuText {
+  padding: 18px;
+  color: var(--orange);
+  text-decoration: none;
 }
 
 .light {
@@ -14,12 +21,4 @@
 .dark {
   color: var(--white);
   background-color: var(--darkGrey);
-}
-
-.menuContent {
-  display: flex;
-}
-
-.dishCounter {
-  margin-left: 80px;
 }

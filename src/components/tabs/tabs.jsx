@@ -1,13 +1,10 @@
 import { useState } from "react";
-import { Restaurant } from "../restaurant/restaurant";
 import styles from "./tabs.module.css";
 import { Container } from "../container/container";
 import { useSelector } from "react-redux";
 import classNames from "classnames";
-import {
-  selectRestaurantById,
-  selectRestaurants,
-} from "../../redux/entities/restaurants/restaurants-slice";
+import { selectRestaurants } from "../../redux/entities/restaurants/restaurants-slice";
+import { NavLink } from "react-router-dom";
 
 export const Tabs = () => {
   const restaurants = useSelector(selectRestaurants);
@@ -17,17 +14,15 @@ export const Tabs = () => {
     setActiveTab(tabId);
   };
 
-  const activeRestaurant = useSelector((state) =>
-    selectRestaurantById(state, activeTab)
-  );
-
   return (
     <div>
+      <div className={styles.tabsImage}>добавить картинку</div>
       <div className={styles.tabsHeader}>
         <Container>
           <div className={styles.tabsContent}>
             {restaurants.map((restaurant) => (
-              <button
+              <NavLink
+                to={`/restaurants/${restaurant.id}`}
                 className={classNames(styles.buttonTabs, {
                   [styles.active]: restaurant.id === activeTab,
                 })}
@@ -35,15 +30,11 @@ export const Tabs = () => {
                 onClick={() => handleClick(restaurant.id)}
               >
                 {restaurant.name}
-              </button>
+              </NavLink>
             ))}
           </div>
         </Container>
       </div>
-
-      {activeRestaurant && (
-        <Restaurant key={activeRestaurant.id} id={activeRestaurant.id} />
-      )}
     </div>
   );
 };
