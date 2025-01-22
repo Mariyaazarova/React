@@ -1,5 +1,5 @@
 import styles from "./home-page.module.css";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const HomePage = () => {
   return (
@@ -10,9 +10,9 @@ export const HomePage = () => {
           <p>Choose restaurant and order your favorite dishes</p>
         </div>
       </div>
-      <NavLink to="restaurants" className={styles.restaurantsText}>
+      <Link to="/restaurants" className={styles.restaurantsText}>
         Restaurants
-      </NavLink>
+      </Link>
     </main>
   );
 };

@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import classNames from "classnames";
 import { selectDishById } from "../../redux/entities/dishes/dishes-slice";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { DishCounter } from "../dish-counter/dish-counter";
 import { useAuth } from "../auth-context/use-auth";
 import { Cart } from "../cart/cart";
@@ -22,6 +22,7 @@ export const Dishes = () => {
 
   return (
     <Container>
+      <Link to="/restaurants">Рестораны</Link>
       <div
         className={classNames(styles.menuCart, {
           [styles.light]: theme === "light",

@@ -5,10 +5,8 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Tabs } from "./components/tabs/tabs";
-import { Restaurant } from "./components/restaurant/restaurant";
-import { RestaurantMenu } from "./components/restaurant-menu/restaurant-menu";
-import { RestaurantReviews } from "./components/restaurant-reviews/restaurant-reviews";
 import { Dishes } from "./components/restaurant-menu/dishes";
+import { Restaurant } from "./components/restaurant/restaurant";
 
 const router = createBrowserRouter([
   {
@@ -19,18 +17,10 @@ const router = createBrowserRouter([
   {
     path: "/restaurants",
     element: <Tabs />,
-  },
-  {
-    path: "/restaurants/:restaurantId",
-    element: <Restaurant />,
     children: [
       {
-        path: "menu",
-        element: <RestaurantMenu />,
-      },
-      {
-        path: "reviews",
-        element: <RestaurantReviews />,
+        path: ":id",
+        element: <Restaurant />,
       },
     ],
   },

@@ -7,7 +7,9 @@ export const Header = () => {
     <header className={styles.header}>
       <AuthButton />
       <SwitchThemeButton />
-      Food delivery App
+      <a href={`/`} className={styles.headerContent}>
+        Food delivery App
+      </a>
     </header>
   );
 };

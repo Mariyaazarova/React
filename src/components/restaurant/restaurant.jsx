@@ -1,14 +1,22 @@
 import { Container } from "../container/container";
 import { useSelector } from "react-redux";
 import { selectRestaurantById } from "../../redux/entities/restaurants/restaurants-slice";
-import { useParams } from "react-router-dom";
-import { NavLink, Outlet } from "react-router-dom";
+import { RestaurantMenu } from "../restaurant-menu/restaurant-menu";
+import { selectDishesByIds } from "../../redux/entities/dishes/dishes-slice";
+import { selectReviewsByIds } from "../../redux/entities/reviews/reviews-slice";
+import { useState } from "react";
+import { RestaurantReviews } from "../restaurant-reviews/restaurant-reviews";
+import classNames from "classnames";
+import styles from "./restaurant.module.css";
+import { NavLink } from "react-router-dom";
 
-export const Restaurant = () => {
-  const { restaurantId } = useParams();
-  const restaurant = useSelector((state) =>
-    selectRestaurantById(state, restaurantId)
-  );
+export const Restaurant = ({ id }) => {
+  const [activeTab, setActiveTab] = useState("menu");
+  const restaurant = useSelector((state) => selectRestaurantById(state, id));
+  const { menu: dishIds, reviews: reviewIds } = restaurant;
+
+  const dishes = useSelector((state) => selectDishesByIds(state, dishIds));
+  const reviews = useSelector((state) => selectReviewsByIds(state, reviewIds));
 
   if (!restaurant || !restaurant.name) {
     return null;
@@ -17,15 +25,26 @@ export const Restaurant = () => {
   return (
     <Container>
       <h2>{restaurant.name}</h2>
-      <div>
-        <div>
-          <NavLink to={`/restaurants/${restaurantId}/menu`}>Menu</NavLink>
-        </div>
-        <div>
-          <NavLink to={`/restaurants/${restaurantId}/reviews`}>Reviews</NavLink>
-        </div>
+      <div className={styles.restaurant}>
+        <NavLink
+          className={classNames(styles.buttonRestaurant, {
+            [styles.active]: "menu" === activeTab,
+          })}
+          onClick={() => setActiveTab("menu")}
+        >
+          Menu
+        </NavLink>
+        <NavLink
+          className={classNames(styles.buttonRestaurant, {
+            [styles.active]: "reviews" === activeTab,
+          })}
+          onClick={() => setActiveTab("reviews")}
+        >
+          Reviews
+        </NavLink>
       </div>
-      <Outlet />
+      {activeTab === "menu" && <RestaurantMenu menu={dishes} />}
+      {activeTab === "reviews" && <RestaurantReviews reviews={reviews} />}
     </Container>
   );
 };
