@@ -21,17 +21,14 @@ export const cartSlice = createSlice({
     },
   },
 });
+const selectCart = (state) => state.cart;
 
-export const selectCartItems = createSelector(
-  (state) => state.cart,
-  (cart) => {
-    return Object.keys(cart).reduce((acc, id) => {
-      acc.push({ id, amount: cart[id] });
-
-      return acc;
-    }, []);
-  }
-);
+export const selectCartItems = createSelector([selectCart], (cart) => {
+  return Object.keys(cart).reduce((acc, id) => {
+    acc.push({ id, amount: cart[id] });
+    return acc;
+  }, []);
+});
 
 export const selectCartItemAmountById = (state, id) => state.cart[id];
 export const { addToCart, removeFromCart, deleteCartEntry } = cartSlice.actions;

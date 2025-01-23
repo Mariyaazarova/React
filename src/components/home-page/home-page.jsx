@@ -1,7 +1,12 @@
+import { useAuth } from "../auth-context/use-auth";
+import { Cart } from "../cart/cart";
+import { Container } from "../container/container";
 import styles from "./home-page.module.css";
 import { Link } from "react-router-dom";
 
 export const HomePage = () => {
+  const { auth } = useAuth();
+
   return (
     <main className={styles.homePage}>
       <div className={styles.image}>
@@ -13,6 +18,7 @@ export const HomePage = () => {
       <Link to="/restaurants" className={styles.restaurantsText}>
         Restaurants
       </Link>
+      <Container>{auth.isAuthorized && <Cart />}</Container>
     </main>
   );
 };

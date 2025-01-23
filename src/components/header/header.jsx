@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { AuthButton } from "../auth-button/auth-button";
 import { SwitchThemeButton } from "../switch-theme-button/switch-theme-button";
 import styles from "./header.module.css";
@@ -7,9 +8,9 @@ export const Header = () => {
     <header className={styles.header}>
       <AuthButton />
       <SwitchThemeButton />
-      <a href={`/`} className={styles.headerContent}>
+      <Link to="/" className={styles.headerContent}>
         Food delivery App
-      </a>
+      </Link>
     </header>
   );
 };

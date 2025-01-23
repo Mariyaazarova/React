@@ -13,21 +13,20 @@ export const dishesSlice = createSlice({
   name: "dishes",
   initialState,
   selectors: {
-    selectEntities: (state) => state.entities,
-    selectIds: (state) => state.ids,
+    selectDishesEntities: (state) => state.entities,
   },
 });
 
 export const selectDishById = createSelector(
-  [dishesSlice.selectors.selectEntities, (__, id) => id],
+  [dishesSlice.selectors.selectDishesEntities, (__, id) => id],
   (entities, id) => entities[id]
 );
 
 export const selectDishesByIds = createSelector(
-  [dishesSlice.selectors.selectEntities, (__, ids) => ids],
+  [dishesSlice.selectors.selectDishesEntities, (__, ids) => ids],
   (entities, ids) => {
     return Array.isArray(ids) ? ids.map((item) => entities[item]) : [];
   }
 );
 
-export const { selectEntities, selectIds } = dishesSlice.selectors;
+export const { selectDishesEntities } = dishesSlice.selectors;

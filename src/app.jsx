@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Tabs } from "./components/tabs/tabs";
 import { Dishes } from "./components/restaurant-menu/dishes";
 import { Restaurant } from "./components/restaurant/restaurant";
+import { Reviews } from "./components/restaurant-reviews/reviews";
 
 const router = createBrowserRouter([
   {
@@ -16,26 +17,54 @@ const router = createBrowserRouter([
   },
   {
     path: "/restaurants",
-    element: <Tabs />,
+    element: (
+      <Layout>
+        <Tabs />
+      </Layout>
+    ),
     children: [
       {
         path: ":id",
-        element: <Restaurant />,
+        element: (
+          <Layout>
+            <Restaurant />
+          </Layout>
+        ),
+        children: [
+          {
+            path: "menu",
+            element: (
+              <Layout>
+                <menu />
+              </Layout>
+            ),
+          },
+          {
+            path: "reviews",
+            element: (
+              <Layout>
+                <Reviews />
+              </Layout>
+            ),
+          },
+        ],
       },
     ],
   },
   {
     path: "/dish/:dishId",
-    element: <Dishes />,
+    element: (
+      <Layout>
+        <Dishes />
+      </Layout>
+    ),
   },
 ]);
 
 export const App = () => {
   return (
     <Provider store={store}>
-      <Layout>
-        <RouterProvider router={router} />
-      </Layout>
+      <RouterProvider router={router} />
     </Provider>
   );
 };

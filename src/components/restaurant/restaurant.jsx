@@ -27,17 +27,21 @@ export const Restaurant = ({ id }) => {
       <h2>{restaurant.name}</h2>
       <div className={styles.restaurant}>
         <NavLink
-          className={classNames(styles.buttonRestaurant, {
-            [styles.active]: "menu" === activeTab,
-          })}
+          to={`/restaurants/${id}/menu`}
+          className={classNames(
+            styles.buttonRestaurant,
+            activeTab === "menu" && styles.active
+          )}
           onClick={() => setActiveTab("menu")}
         >
           Menu
         </NavLink>
         <NavLink
-          className={classNames(styles.buttonRestaurant, {
-            [styles.active]: "reviews" === activeTab,
-          })}
+          to={`/restaurants/${id}/reviews`}
+          className={classNames(
+            styles.buttonRestaurant,
+            activeTab === "reviews" && styles.active
+          )}
           onClick={() => setActiveTab("reviews")}
         >
           Reviews
