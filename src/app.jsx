@@ -4,60 +4,45 @@ import "./app.css";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Tabs } from "./components/tabs/tabs";
-import { Dishes } from "./components/restaurant-menu/dishes";
+import { RestaurantsPage } from "./components/restaurants-page/restaurants-page";
+import { DishPage } from "./components/dish-page/dish-page";
 import { Restaurant } from "./components/restaurant/restaurant";
-import { Reviews } from "./components/restaurant-reviews/reviews";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
+    element: <Layout />,
     errorElement: <div>Not Found</div>,
-  },
-  {
-    path: "/restaurants",
-    element: (
-      <Layout>
-        <Tabs />
-      </Layout>
-    ),
     children: [
       {
-        path: ":id",
-        element: (
-          <Layout>
-            <Restaurant />
-          </Layout>
-        ),
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: "restaurants",
+        element: <RestaurantsPage />,
         children: [
           {
-            path: "menu",
-            element: (
-              <Layout>
-                <menu />
-              </Layout>
-            ),
-          },
-          {
-            path: "reviews",
-            element: (
-              <Layout>
-                <Reviews />
-              </Layout>
-            ),
+            path: ":id",
+            element: <Restaurant />,
+            children: [
+              {
+                path: "menu",
+                element: <div>menu</div>, // TODO: нужно доделать, чтобы здесь отображалось меню
+              },
+              {
+                path: "reviews",
+                element: <div>reviews</div>, // TODO: нужно доделать, чтобы здесь отображались отзывы
+              },
+            ],
           },
         ],
       },
+      {
+        path: "/dish/:dishId",
+        element: <DishPage />,
+      },
     ],
-  },
-  {
-    path: "/dish/:dishId",
-    element: (
-      <Layout>
-        <Dishes />
-      </Layout>
-    ),
   },
 ]);
 

@@ -4,21 +4,18 @@ import { selectDishById } from "../../redux/entities/dishes/dishes-slice";
 import { Link, useParams } from "react-router-dom";
 import { DishCounter } from "../dish-counter/dish-counter";
 import { useAuth } from "../auth-context/use-auth";
-import { Cart } from "../cart/cart";
-import styles from "./restaurant-menu.module.css";
+import styles from "./dish-page.module.css";
 import { Container } from "../container/container";
 import { useTheme } from "../theme-context/use-theme";
 
-export const Dishes = () => {
+export const DishPage = () => {
   const { theme } = useTheme();
   const { auth } = useAuth();
-
   const { dishId } = useParams();
+
   const dish = useSelector((state) => selectDishById(state, dishId));
 
-  if (!dish) {
-    return null;
-  }
+  if (!dish) return null;
 
   return (
     <Container>
@@ -34,7 +31,6 @@ export const Dishes = () => {
         <p> Price: {dish.price}$</p>
         {auth.isAuthorized && <DishCounter id={dishId} />}
       </div>
-      {auth.isAuthorized && <Cart />}
     </Container>
   );
 };
