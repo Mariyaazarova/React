@@ -1,13 +1,22 @@
 import { ReviewForm } from "../review-form/review-form";
 import { useAuth } from "../auth-context/use-auth";
-import { Reviews } from "./reviews";
 import styles from "./restaurant-reviews.module.css";
 import classNames from "classnames";
 import { useTheme } from "../theme-context/use-theme";
+import { Reviews } from "./reviews";
+import { selectRestaurantById } from "../../redux/entities/restaurants/restaurants-slice";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-export const RestaurantReviews = ({ reviews }) => {
+export const RestaurantReviews = () => {
+  const { id } = useParams(); 
   const { theme } = useTheme();
   const { auth } = useAuth();
+  const restaurant = useSelector((state) => selectRestaurantById(state, id));
+
+  if (!restaurant || !restaurant.reviews) {
+    return null; 
+  }
 
   return (
     <div>
@@ -18,7 +27,7 @@ export const RestaurantReviews = ({ reviews }) => {
         })}
       >
         <h3>Reviews:</h3>
-        <div>{!!reviews.length && <Reviews reviews={reviews} />}</div>
+        <Reviews reviews={restaurant.reviews} />
       </div>
       <div className={styles.reviewForm}>
         {auth.isAuthorized && <ReviewForm />}

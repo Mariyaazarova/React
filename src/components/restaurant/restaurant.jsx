@@ -17,7 +17,6 @@ export const Restaurant = () => {
   const navigate = useNavigate();
   const match = useMatch("/restaurants/:id");
 
-  // этот эффект нужен для того, чтобы автоматически открывать вкладку menu при переходах между ресторанами
   useEffect(() => {
     if (match) {
       navigate("menu", { replace: true, relative: true });

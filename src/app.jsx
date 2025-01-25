@@ -7,6 +7,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { RestaurantsPage } from "./components/restaurants-page/restaurants-page";
 import { DishPage } from "./components/dish-page/dish-page";
 import { Restaurant } from "./components/restaurant/restaurant";
+import { RestaurantMenu } from "./components/restaurant-menu/restaurant-menu";
+import { RestaurantReviews } from "./components/restaurant-reviews/restaurant-reviews";
 
 const router = createBrowserRouter([
   {
@@ -28,11 +30,11 @@ const router = createBrowserRouter([
             children: [
               {
                 path: "menu",
-                element: <div>menu</div>, // TODO: нужно доделать, чтобы здесь отображалось меню
+                element: <RestaurantMenu />,
               },
               {
                 path: "reviews",
-                element: <div>reviews</div>, // TODO: нужно доделать, чтобы здесь отображались отзывы
+                element: <RestaurantReviews />,
               },
             ],
           },
