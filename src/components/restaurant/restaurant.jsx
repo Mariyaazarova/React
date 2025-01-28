@@ -1,18 +1,29 @@
 import { Container } from "../container/container";
-import { RestaurantMenu } from "../restaurant-menu/restaurant-menu";
-import { RestaurantReviews } from "../restaurant-reviews/restaurant-reviews";
 import { useSelector } from "react-redux";
-import { selectDishesByIds } from "../../redux/entities/dishes/dishes-slice";
-import { selectReviewsByIds } from "../../redux/entities/reviews/reviews-slice";
 import { selectRestaurantById } from "../../redux/entities/restaurants/restaurants-slice";
+import classNames from "classnames";
+import styles from "./restaurant.module.css";
+import {
+  NavLink,
+  Outlet,
+  useMatch,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
+import { useEffect } from "react";
 
-export const Restaurant = ({ id }) => {
+export const Restaurant = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const match = useMatch("/restaurants/:id");
+
+  useEffect(() => {
+    if (match) {
+      navigate("menu", { replace: true, relative: true });
+    }
+  }, [navigate, match]);
+
   const restaurant = useSelector((state) => selectRestaurantById(state, id));
-
-  const { menu: dishIds, reviews: reviewIds } = restaurant;
-
-  const dishes = useSelector((state) => selectDishesByIds(state, dishIds));
-  const reviews = useSelector((state) => selectReviewsByIds(state, reviewIds));
 
   if (!restaurant || !restaurant.name) {
     return null;
@@ -21,8 +32,25 @@ export const Restaurant = ({ id }) => {
   return (
     <Container>
       <h2>{restaurant.name}</h2>
-      <RestaurantMenu menu={dishes} />
-      <RestaurantReviews reviews={reviews} />
+      <div className={styles.restaurant}>
+        <NavLink
+          to={`/restaurants/${id}/menu`}
+          className={({ isActive }) =>
+            classNames(styles.buttonRestaurant, isActive && styles.active)
+          }
+        >
+          Menu
+        </NavLink>
+        <NavLink
+          to={`/restaurants/${id}/reviews`}
+          className={({ isActive }) =>
+            classNames(styles.buttonRestaurant, isActive && styles.active)
+          }
+        >
+          Reviews
+        </NavLink>
+      </div>
+      <Outlet />
     </Container>
   );
 };

@@ -1,0 +1,25 @@
+.homePage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  text-align: center;
+  font-size: 28px;
+  color: var(--white);
+}
+
+.restaurantsText {
+  padding: 18px;
+  color: var(--black);
+  text-decoration: none;
+}
+
+.image {
+  background-image: url("home-page-background-image.jpg");
+  background-position: left;
+  background-size: cover;
+  height: 200px;
+  width: 100vw;
+}

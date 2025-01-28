@@ -1,19 +1,35 @@
-.restaurantsPage {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.tabsHeader {
+  width: 100vw;
+  background-color: var(--black);
 }
 
-.content {
-  text-align: center;
-  font-size: 28px;
-  color: var(--white);
-}
-
-.image {
-  background-image: url("restaurants-page-background-image.jpg");
+.tabsImage {
+  background-image: url("./tabs-background-image.jpg");
   background-position: bottom;
   background-size: cover;
   height: 200px;
   width: 100vw;
+}
+
+.tabsContent {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  gap: 25px;
+}
+
+.buttonTabs {
+  padding: 10px 20px;
+  background-color: var(--white);
+  color: var(--black);
+  text-decoration: none;
+  border-radius: 5px;
+  margin-right: 10px;
+  transition: all 0.3s ease;
+}
+
+.active {
+  background-color: var(--orange);
+  color: var(--white);
 }

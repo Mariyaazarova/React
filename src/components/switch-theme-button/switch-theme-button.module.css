@@ -7,14 +7,13 @@
   background-color: transparent;
   transition: all 0.2s;
   cursor: pointer;
+  border: none;
 }
 
 .light {
   color: var(--white);
-  border: 1px solid var(--white);
 }
 
 .dark {
   color: var(--orange);
-  border: 1px solid var(--orange);
 }

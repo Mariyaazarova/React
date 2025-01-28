@@ -1,0 +1,15 @@
+.restaurant {
+  margin-bottom: 30px;
+}
+
+.buttonRestaurant {
+  padding: 10px 20px;
+  color: var(--black);
+  text-decoration: none;
+  margin-right: 10px;
+  transition: all 0.3s ease;
+}
+
+.active {
+  color: var(--orange);
+}
