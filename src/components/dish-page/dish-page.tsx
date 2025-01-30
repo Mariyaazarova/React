@@ -14,7 +14,6 @@ export const DishPage = () => {
   const { dishId } = useParams();
 
   const dish = useSelector((state) => selectDishById(state, dishId));
-
   if (!dish) return null;
 
   return (

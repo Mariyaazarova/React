@@ -8,13 +8,15 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Review } from "./review";
 import { selectReviewsByIds } from "../../redux/entities/reviews/reviews-slice";
+import { getReviews } from "../../redux/entities/reviews/get-reviews";
+import { useRequest } from "../../redux/hooks/use-request";
 
 export const RestaurantReviews = () => {
   const { id } = useParams();
   const { theme } = useTheme();
   const { auth } = useAuth();
-  const restaurant = useSelector((state) => selectRestaurantById(state, id));
 
+  const restaurant = useSelector((state) => selectRestaurantById(state, id));
   if (!restaurant || !restaurant.reviews) {
     return null;
   }
@@ -22,6 +24,18 @@ export const RestaurantReviews = () => {
   const reviews = useSelector((state) =>
     selectReviewsByIds(state, restaurant.reviews)
   );
+
+  const requestStatus = useRequest(getReviews);
+
+  if (requestStatus === "pending") {
+    return "loading...";
+  }
+  if (requestStatus === "rejected") {
+    return "error...";
+  }
+  if (!reviews?.length) {
+    return null;
+  }
 
   return (
     <div>
@@ -33,9 +47,12 @@ export const RestaurantReviews = () => {
       >
         <h3>Reviews:</h3>
         <ul>
-          {reviews.map((review) => (
-            <Review key={review.id} review={review} />
-          ))}
+          {reviews.map((review) => {
+            if (!review) {
+              return null;
+            }
+            return <Review key={review.id} review={review} />;
+          })}
         </ul>
       </div>
       <div className={styles.reviewForm}>
