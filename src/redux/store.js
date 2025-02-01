@@ -3,12 +3,9 @@ import { restaurantsSlice } from "../redux/entities/restaurants/restaurants-slic
 import { dishesSlice } from "../redux/entities/dishes/dishes-slice";
 import { reviewsSlice } from "../redux/entities/reviews/reviews-slice";
 import { usersSlice } from "../redux/entities/users/users-slice";
-import { cartSlice } from "../redux/entities/ui/cart/cart-slice";
-import { requestSlice } from "./entities/ui/cart/request-slice";
-
-const loggerMiddleware = () => (next) => (action) => {
-  return next(action);
-};
+import { cartSlice } from "./entities/cart/cart-slice";
+import { requestSlice } from "./entities/request/request-slice";
+import { createLogger } from "redux-logger";
 
 export const store = configureStore({
   reducer: {
@@ -19,6 +16,6 @@ export const store = configureStore({
     [cartSlice.name]: cartSlice.reducer,
     [requestSlice.name]: requestSlice.reducer,
   },
-  middleware: (getDefaultMiddlewares) =>
-    getDefaultMiddlewares().concat(loggerMiddleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(createLogger()),
 });

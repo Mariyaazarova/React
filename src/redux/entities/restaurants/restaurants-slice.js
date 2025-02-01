@@ -9,14 +9,13 @@ const entityAdapter = createEntityAdapter();
 
 export const restaurantsSlice = createSlice({
   name: "restaurants",
-  initialState: entityAdapter.getInitialState({ requestStatus: "idle" }),
+  initialState: entityAdapter.getInitialState(),
   selectors: {
     selectRestaurantsEntities: (state) => state.entities,
   },
   extraReducers: (builder) => {
     builder.addCase(getRestaurants.fulfilled, (state, { payload }) => {
       entityAdapter.setMany(state, payload);
-      state.requestStatus = "fulfilled";
     });
   },
 });

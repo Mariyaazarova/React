@@ -4,21 +4,25 @@ import {
   createEntityAdapter,
 } from "@reduxjs/toolkit";
 import { getDishes } from "./get-dishes";
+import { getDish } from "./get-dish";
 
 const entityAdapter = createEntityAdapter();
 
 export const dishesSlice = createSlice({
   name: "dishes",
-  initialState: entityAdapter.getInitialState({ requestStatus: "idle" }),
+  initialState: entityAdapter.getInitialState(),
   selectors: {
     selectDishesEntities: (state) => state.entities,
   },
 
   extraReducers: (builder) => {
-    builder.addCase(getDishes.fulfilled, (state, { payload }) => {
-      entityAdapter.setMany(state, payload);
-      state.requestStatus = "fulfilled";
-    });
+    builder
+      .addCase(getDishes.fulfilled, (state, { payload }) => {
+        entityAdapter.setMany(state, payload);
+      })
+      .addCase(getDish.fulfilled, (state, { payload }) => {
+        entityAdapter.setOne(state, payload);
+      });
   },
 });
 
