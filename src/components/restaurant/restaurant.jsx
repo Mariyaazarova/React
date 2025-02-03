@@ -28,6 +28,7 @@ export const Restaurant = () => {
   if (!restaurant || !restaurant.name) {
     return null;
   }
+
   return (
     <Container>
       <h2>{restaurant.name}</h2>

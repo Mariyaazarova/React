@@ -1,7 +1,7 @@
 import {
-  createSelector,
   createSlice,
   createEntityAdapter,
+  createSelector,
 } from "@reduxjs/toolkit";
 import { getDishes } from "./get-dishes";
 import { getDish } from "./get-dish";
@@ -12,6 +12,7 @@ export const dishesSlice = createSlice({
   name: "dishes",
   initialState: entityAdapter.getInitialState(),
   selectors: {
+    selectDishesIds: (state) => state.ids,
     selectDishesEntities: (state) => state.entities,
   },
 
@@ -34,8 +35,7 @@ export const selectDishById = createSelector(
 export const selectDishesByIds = createSelector(
   [dishesSlice.selectors.selectDishesEntities, (__, ids) => ids],
   (entities, ids) => {
-    return Array.isArray(ids) ? ids.map((item) => entities[item]) : [];
+    return Array.isArray(ids) ? ids.map((id) => entities[id]) : [];
   }
 );
-
-export const { selectDishesEntities } = dishesSlice.selectors;
+export const { selectDishesEntities, selectDishesIds } = dishesSlice.selectors;

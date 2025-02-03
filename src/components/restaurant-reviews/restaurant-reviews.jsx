@@ -10,6 +10,7 @@ import { Review } from "./review";
 import { selectReviewsByIds } from "../../redux/entities/reviews/reviews-slice";
 import { getReviews } from "../../redux/entities/reviews/get-reviews";
 import { useRequest } from "../../redux/hooks/use-request";
+import { IS_PENDING } from "../consts";
 
 export const RestaurantReviews = () => {
   const { id } = useParams();
@@ -27,15 +28,27 @@ export const RestaurantReviews = () => {
 
   const requestStatus = useRequest(getReviews);
 
-  if (requestStatus === "pending") {
-    return "loading...";
-  }
-  if (requestStatus === "rejected") {
-    return "error...";
-  }
-  if (!reviews?.length) {
-    return null;
-  }
+  const renderReviews = () => {
+    if (reviews) {
+      return (
+        <>
+          <h3>Reviews:</h3>
+          <ul>
+            {reviews.map((review) => {
+              if (!review) {
+                return null;
+              }
+              return <Review key={review.id} review={review} />;
+            })}
+          </ul>
+        </>
+      );
+    } else if (requestStatus === IS_PENDING) {
+      return <div>Loading...</div>;
+    } else {
+      return <div>Ничего не найдено</div>;
+    }
+  };
 
   return (
     <div>
@@ -45,15 +58,7 @@ export const RestaurantReviews = () => {
           [styles.dark]: theme === "dark",
         })}
       >
-        <h3>Reviews:</h3>
-        <ul>
-          {reviews.map((review) => {
-            if (!review) {
-              return null;
-            }
-            return <Review key={review.id} review={review} />;
-          })}
-        </ul>
+        {renderReviews()}
       </div>
       <div className={styles.reviewForm}>
         {auth.isAuthorized && <ReviewForm />}

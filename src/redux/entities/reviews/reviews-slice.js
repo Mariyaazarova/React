@@ -11,12 +11,12 @@ export const reviewsSlice = createSlice({
   name: "reviews",
   initialState: entityAdapter.getInitialState({ requestStatus: "idle" }),
   selectors: {
+    selectReviewsIds: (state) => state.ids,
     selectReviewsEntities: (state) => state.entities,
   },
   extraReducers: (builder) => {
     builder.addCase(getReviews.fulfilled, (state, { payload }) => {
       entityAdapter.setMany(state, payload);
-      state.requestStatus = "fulfilled";
     });
   },
 });
@@ -28,4 +28,5 @@ export const selectReviewsByIds = createSelector(
   }
 );
 
-export const { selectReviewsEntities } = reviewsSlice.selectors;
+export const { selectReviewsEntities, selectReviewsIds } =
+  reviewsSlice.selectors;
