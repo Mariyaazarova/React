@@ -7,30 +7,27 @@ import { selectRestaurantById } from "../../redux/entities/restaurants/restauran
 import { useRequest } from "../../redux/hooks/use-request";
 import { getDishes } from "../../redux/entities/dishes/get-dishes";
 import { selectDishesByIds } from "../../redux/entities/dishes/dishes-slice";
-import { REQUESR_STATUSES } from "../../redux/consts";
+import { REQUEST_STATUSES } from "../../redux/consts";
 
 export const RestaurantMenu = () => {
   const { id } = useParams();
   const { theme } = useTheme();
-  const requestStatus = useRequest(getDishes);
+  const requestStatus = useRequest(getDishes, id);
 
   const restaurant = useSelector((state) => selectRestaurantById(state, id));
-
-  if (!restaurant || !restaurant.menu) {
-    return null;
-  }
-
   const dishes = useSelector((state) =>
     selectDishesByIds(state, restaurant.menu)
   );
 
   const renderDishes = () => {
-    if (dishes && dishes.length > 0) {
+    if (requestStatus === REQUEST_STATUSES.PENDING) {
+      return <div>Loading dishes...</div>;
+    } else if (dishes && dishes.length > 0) {
       return (
         <>
           <h3>Menu:</h3>
           <div>
-            {dishes.filter(Boolean).map((dish) => (
+            {dishes.map((dish) => (
               <div key={dish.id}>
                 <h4>
                   <Link to={`/dish/${dish.id}`} className={styles.menuText}>
@@ -42,10 +39,8 @@ export const RestaurantMenu = () => {
           </div>
         </>
       );
-    } else if (requestStatus === REQUESR_STATUSES.PENDING) {
-      return <div>Loading...</div>;
     } else {
-      return <div>Ничего не найдено</div>;
+      return <div>Ничего не найдено (dishes)</div>;
     }
   };
 

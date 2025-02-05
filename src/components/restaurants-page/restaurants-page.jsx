@@ -6,11 +6,10 @@ import { selectRestaurants } from "../../redux/entities/restaurants/restaurants-
 import { NavLink, Outlet } from "react-router-dom";
 import { getRestaurants } from "../../redux/entities/restaurants/get-restaurants";
 import { useRequest } from "../../redux/hooks/use-request";
-import { REQUESR_STATUSES } from "../../redux/consts";
+import { REQUEST_STATUSES } from "../../redux/consts";
 
 export const RestaurantsPage = () => {
   const restaurants = useSelector(selectRestaurants);
-
   const requestStatus = useRequest(getRestaurants);
 
   const renderRestaurants = () => {
@@ -30,10 +29,10 @@ export const RestaurantsPage = () => {
           ))}
         </>
       );
-    } else if (requestStatus === REQUESR_STATUSES.PENDING) {
-      return <div>Loading...</div>;
+    } else if (requestStatus === REQUEST_STATUSES.PENDING) {
+      return <div className={styles.loadingText}>Loading restaurants...</div>;
     } else {
-      return <div>error...</div>;
+      return <div>Ничего не найдено (restaurants)</div>;
     }
   };
 

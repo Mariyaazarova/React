@@ -24,7 +24,8 @@ export const reviewsSlice = createSlice({
 export const selectReviewsByIds = createSelector(
   [reviewsSlice.selectors.selectReviewsEntities, (_, ids) => ids],
   (entities, ids) => {
-    return Array.isArray(ids) ? ids.map((item) => entities[item]) : [];
+    if (!Array.isArray(ids)) return [];
+    return ids.filter((item) => item in entities).map((item) => entities[item]);
   }
 );
 

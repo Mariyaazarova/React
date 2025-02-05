@@ -10,37 +10,38 @@ import { Review } from "./review";
 import { selectReviewsByIds } from "../../redux/entities/reviews/reviews-slice";
 import { getReviews } from "../../redux/entities/reviews/get-reviews";
 import { useRequest } from "../../redux/hooks/use-request";
-import { REQUESR_STATUSES } from "../../redux/consts";
+import { REQUEST_STATUSES } from "../../redux/consts";
+import { getUsers } from "../../redux/entities/users/get-users";
 
 export const RestaurantReviews = () => {
   const { id } = useParams();
   const { theme } = useTheme();
   const { auth } = useAuth();
-  const requestStatus = useRequest(getReviews);
+  const reviewsRequestStatus = useRequest(getReviews, id);
+  const usersRequestStatus = useRequest(getUsers);
 
   const restaurant = useSelector((state) => selectRestaurantById(state, id));
-  if (!restaurant || !restaurant.reviews) {
-    return null;
-  }
 
   const reviews = useSelector((state) =>
     selectReviewsByIds(state, restaurant.reviews)
   );
 
   const renderReviews = () => {
-    if (reviews) {
+    if (reviewsRequestStatus === REQUEST_STATUSES.PENDING) {
+      return <div>Loading reviews...</div>;
+    } else if (usersRequestStatus === REQUEST_STATUSES.PENDING) {
+      return <div>Loading users...</div>;
+    } else if (reviews && !!reviews.length) {
       return (
         <>
           <h3>Reviews:</h3>
           <ul>
-            {reviews.filter(Boolean).map((review) => (
+            {reviews.map((review) => (
               <Review key={review.id} review={review} />
             ))}
           </ul>
         </>
       );
-    } else if (requestStatus === REQUESR_STATUSES.PENDING) {
-      return <div>Loading...</div>;
     } else {
       return <div>Ничего не найдено</div>;
     }
