@@ -5,4 +5,22 @@
   box-shadow: 0 0 10px var(--grey);
   border-radius: 10px;
   margin-top: 10px;
+  position: relative;
+}
+
+.light {
+  color: var(--black);
+  background-color: var(--white);
+}
+
+.dark {
+  color: var(--white);
+  background-color: var(--darkGrey);
+}
+
+.centeredItem {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }

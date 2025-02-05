@@ -8,20 +8,44 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Review } from "./review";
 import { selectReviewsByIds } from "../../redux/entities/reviews/reviews-slice";
+import { getReviews } from "../../redux/entities/reviews/get-reviews";
+import { useRequest } from "../../redux/hooks/use-request";
+import { REQUEST_STATUSES } from "../../redux/consts";
+import { getUsers } from "../../redux/entities/users/get-users";
 
 export const RestaurantReviews = () => {
   const { id } = useParams();
   const { theme } = useTheme();
   const { auth } = useAuth();
-  const restaurant = useSelector((state) => selectRestaurantById(state, id));
+  const reviewsRequestStatus = useRequest(getReviews, id);
+  const usersRequestStatus = useRequest(getUsers);
 
-  if (!restaurant || !restaurant.reviews) {
-    return null;
-  }
+  const restaurant = useSelector((state) => selectRestaurantById(state, id));
 
   const reviews = useSelector((state) =>
     selectReviewsByIds(state, restaurant.reviews)
   );
+
+  const renderReviews = () => {
+    if (reviewsRequestStatus === REQUEST_STATUSES.PENDING) {
+      return <div>Loading reviews...</div>;
+    } else if (usersRequestStatus === REQUEST_STATUSES.PENDING) {
+      return <div>Loading users...</div>;
+    } else if (reviews && !!reviews.length) {
+      return (
+        <>
+          <h3>Reviews:</h3>
+          <ul>
+            {reviews.map((review) => (
+              <Review key={review.id} review={review} />
+            ))}
+          </ul>
+        </>
+      );
+    } else {
+      return <div>Ничего не найдено</div>;
+    }
+  };
 
   return (
     <div>
@@ -31,12 +55,7 @@ export const RestaurantReviews = () => {
           [styles.dark]: theme === "dark",
         })}
       >
-        <h3>Reviews:</h3>
-        <ul>
-          {reviews.map((review) => (
-            <Review key={review.id} review={review} />
-          ))}
-        </ul>
+        {renderReviews()}
       </div>
       <div className={styles.reviewForm}>
         {auth.isAuthorized && <ReviewForm />}

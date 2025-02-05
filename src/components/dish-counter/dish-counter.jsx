@@ -4,7 +4,7 @@ import {
   addToCart,
   selectCartItemAmountById,
   removeFromCart,
-} from "../../redux/entities/ui/cart/cart-slice";
+} from "../../redux/entities/cart/cart-slice";
 
 export const DishCounter = ({ id }) => {
   const dispatch = useDispatch();

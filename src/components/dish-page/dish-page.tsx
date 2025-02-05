@@ -7,15 +7,34 @@ import { useAuth } from "../auth-context/use-auth";
 import styles from "./dish-page.module.css";
 import { Container } from "../container/container";
 import { useTheme } from "../theme-context/use-theme";
+import { useRequest } from "../../redux/hooks/use-request";
+import { getDish } from "../../redux/entities/dishes/get-dish";
+import { REQUEST_STATUSES } from "../../redux/consts";
 
 export const DishPage = () => {
   const { theme } = useTheme();
   const { auth } = useAuth();
   const { dishId } = useParams();
-
   const dish = useSelector((state) => selectDishById(state, dishId));
 
-  if (!dish) return null;
+  const requestStatus = useRequest(getDish, dishId);
+
+  const renderDish = () => {
+    if (dish) {
+      return (
+        <>
+          <h2>{dish.name}</h2>
+          <div> Ingredients: {dish.ingredients}</div>
+          <p> Price: {dish.price}$</p>
+          {auth.isAuthorized && <DishCounter id={dishId} />}
+        </>
+      );
+    } else if (requestStatus === REQUEST_STATUSES.PENDING) {
+      return <div className={styles.centeredItem}>Loading...</div>;
+    } else {
+      return <div className={styles.centeredItem}>Ничего не найдено</div>;
+    }
+  };
 
   return (
     <Container>
@@ -26,10 +45,7 @@ export const DishPage = () => {
           [styles.dark]: theme === "dark",
         })}
       >
-        <h2>{dish.name}</h2>
-        <div> Ingredients: {dish.ingredients}</div>
-        <p> Price: {dish.price}$</p>
-        {auth.isAuthorized && <DishCounter id={dishId} />}
+        {renderDish()}
       </div>
     </Container>
   );
