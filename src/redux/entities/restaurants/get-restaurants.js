@@ -1,15 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { selectRestaurants } from "./restaurants-slice";
-import { API_BASE_URL } from "../../consts-api";
+import { API_BASE_URL } from "../../consts";
 
 export const getRestaurants = createAsyncThunk(
   "restaurants/getRestaurants",
-  async (_, { rejectedWithValue }) => {
+  async (_, { rejectWithValue }) => {
     const response = await fetch(`${API_BASE_URL}/restaurants`);
     const result = await response.json();
 
     if (!result.length) {
-      rejectedWithValue("restaurants/getRestaurants no data");
+      rejectWithValue("restaurants/getRestaurants no data");
       return;
     }
     return result;

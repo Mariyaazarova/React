@@ -19,10 +19,10 @@ export const dishesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getDishes.fulfilled, (state, { payload }) => {
-        entityAdapter.setMany(state, payload);
+        entityAdapter.addMany(state, payload);
       })
       .addCase(getDish.fulfilled, (state, { payload }) => {
-        entityAdapter.setOne(state, payload);
+        entityAdapter.addOne(state, payload);
       });
   },
 });
@@ -38,4 +38,5 @@ export const selectDishesByIds = createSelector(
     return Array.isArray(ids) ? ids.map((id) => entities[id]) : [];
   }
 );
+
 export const { selectDishesEntities, selectDishesIds } = dishesSlice.selectors;

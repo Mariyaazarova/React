@@ -10,12 +10,13 @@ import { Review } from "./review";
 import { selectReviewsByIds } from "../../redux/entities/reviews/reviews-slice";
 import { getReviews } from "../../redux/entities/reviews/get-reviews";
 import { useRequest } from "../../redux/hooks/use-request";
-import { IS_PENDING } from "../consts";
+import { REQUESR_STATUSES } from "../../redux/consts";
 
 export const RestaurantReviews = () => {
   const { id } = useParams();
   const { theme } = useTheme();
   const { auth } = useAuth();
+  const requestStatus = useRequest(getReviews);
 
   const restaurant = useSelector((state) => selectRestaurantById(state, id));
   if (!restaurant || !restaurant.reviews) {
@@ -26,24 +27,19 @@ export const RestaurantReviews = () => {
     selectReviewsByIds(state, restaurant.reviews)
   );
 
-  const requestStatus = useRequest(getReviews);
-
   const renderReviews = () => {
     if (reviews) {
       return (
         <>
           <h3>Reviews:</h3>
           <ul>
-            {reviews.map((review) => {
-              if (!review) {
-                return null;
-              }
-              return <Review key={review.id} review={review} />;
-            })}
+            {reviews.filter(Boolean).map((review) => (
+              <Review key={review.id} review={review} />
+            ))}
           </ul>
         </>
       );
-    } else if (requestStatus === IS_PENDING) {
+    } else if (requestStatus === REQUESR_STATUSES.PENDING) {
       return <div>Loading...</div>;
     } else {
       return <div>Ничего не найдено</div>;

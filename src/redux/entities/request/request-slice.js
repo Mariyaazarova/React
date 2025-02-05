@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { REQUESR_STATUSES } from "../../consts";
 
 export const requestSlice = createSlice({
   name: "request",
@@ -11,19 +12,19 @@ export const requestSlice = createSlice({
       .addMatcher(
         ({ type }) => type.endsWith("/pending"),
         (state, { meta }) => {
-          state[meta.requestId] = "pending";
+          state[meta.requestId] = REQUESR_STATUSES.PENDING;
         }
       )
       .addMatcher(
         ({ type }) => type.endsWith("/fulfilled"),
         (state, { meta }) => {
-          state[meta.requestId] = "fulfilled";
+          state[meta.requestId] = REQUESR_STATUSES.FULFILLED;
         }
       )
       .addMatcher(
         ({ type }) => type.endsWith("/rejected"),
         (state, { meta }) => {
-          state[meta.requestId] = "rejected";
+          state[meta.requestId] = REQUESR_STATUSES.REJECTED;
         }
       ),
 });

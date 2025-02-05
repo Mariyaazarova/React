@@ -15,7 +15,7 @@ export const restaurantsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getRestaurants.fulfilled, (state, { payload }) => {
-      entityAdapter.setAll(state, payload);
+      entityAdapter.setMany(state, payload);
     });
   },
 });

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { selectUsersIds } from "./users-slice";
-import { API_BASE_URL } from "../../consts-api";
+import { API_BASE_URL } from "../../consts";
 
 export const getUsers = createAsyncThunk(
   "users/getUsers",

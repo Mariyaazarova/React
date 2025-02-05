@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { selectDishById } from "./dishes-slice";
-import { API_BASE_URL } from "../../consts-api";
+import { API_BASE_URL } from "../../consts";
 
 export const getDish = createAsyncThunk(
   "dishes/fetchDish",

@@ -9,7 +9,7 @@ import { Container } from "../container/container";
 import { useTheme } from "../theme-context/use-theme";
 import { useRequest } from "../../redux/hooks/use-request";
 import { getDish } from "../../redux/entities/dishes/get-dish";
-import { IS_PENDING } from "../consts";
+import { REQUESR_STATUSES } from "../../redux/consts";
 
 export const DishPage = () => {
   const { theme } = useTheme();
@@ -29,7 +29,7 @@ export const DishPage = () => {
           {auth.isAuthorized && <DishCounter id={dishId} />}
         </>
       );
-    } else if (requestStatus === IS_PENDING) {
+    } else if (requestStatus === REQUESR_STATUSES.PENDING) {
       return <div className={styles.centeredItem}>Loading...</div>;
     } else {
       return <div className={styles.centeredItem}>Ничего не найдено</div>;

@@ -6,7 +6,7 @@ import { selectRestaurants } from "../../redux/entities/restaurants/restaurants-
 import { NavLink, Outlet } from "react-router-dom";
 import { getRestaurants } from "../../redux/entities/restaurants/get-restaurants";
 import { useRequest } from "../../redux/hooks/use-request";
-import { IS_PENDING } from "../consts";
+import { REQUESR_STATUSES } from "../../redux/consts";
 
 export const RestaurantsPage = () => {
   const restaurants = useSelector(selectRestaurants);
@@ -30,7 +30,7 @@ export const RestaurantsPage = () => {
           ))}
         </>
       );
-    } else if (requestStatus === IS_PENDING) {
+    } else if (requestStatus === REQUESR_STATUSES.PENDING) {
       return <div>Loading...</div>;
     } else {
       return <div>error...</div>;

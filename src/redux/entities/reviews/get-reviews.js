@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { selectReviewsIds } from "./reviews-slice";
-import { API_BASE_URL } from "../../consts-api";
+import { API_BASE_URL } from "../../consts";
 
 export const getReviews = createAsyncThunk(
   "reviews/getReviews",
-  async (restaurantId, { rejectedWithValue }) => {
+  async (restaurantId, { rejectWithValue }) => {
     const response = await fetch(
       `${API_BASE_URL}/reviews?restaurantId=${restaurantId}`
     );
@@ -12,7 +12,7 @@ export const getReviews = createAsyncThunk(
     const result = await response.json();
 
     if (!result.length) {
-      rejectedWithValue("reviews/getReviews no data");
+      rejectWithValue("reviews/getReviews no data");
       return;
     }
     return result;
