@@ -1,5 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { selectReviewsIds } from "./reviews-slice";
 import { API_BASE_URL } from "../../consts";
 
 export const getReviews = createAsyncThunk(
@@ -16,10 +15,5 @@ export const getReviews = createAsyncThunk(
       return;
     }
     return result;
-  },
-  {
-    condition: (_, { getState }) => {
-      return selectReviewsIds(getState()).length === 0;
-    },
   }
 );

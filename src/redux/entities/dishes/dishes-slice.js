@@ -35,7 +35,8 @@ export const selectDishById = createSelector(
 export const selectDishesByIds = createSelector(
   [dishesSlice.selectors.selectDishesEntities, (__, ids) => ids],
   (entities, ids) => {
-    return Array.isArray(ids) ? ids.map((id) => entities[id]) : [];
+    if (!Array.isArray(ids)) return [];
+    return ids.filter((item) => item in entities).map((item) => entities[item]);
   }
 );
 

@@ -1,5 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { selectDishesIds } from "./dishes-slice";
 import { API_BASE_URL } from "../../consts";
 
 export const getDishes = createAsyncThunk(
@@ -15,10 +14,5 @@ export const getDishes = createAsyncThunk(
       return;
     }
     return result;
-  },
-  {
-    condition: (_, { getState }) => {
-      return selectDishesIds(getState()).length === 0;
-    },
   }
 );

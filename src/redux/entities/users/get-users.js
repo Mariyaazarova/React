@@ -18,7 +18,8 @@ export const getUsers = createAsyncThunk(
   },
   {
     condition: (_, { getState }) => {
-      return selectUsersIds(getState()).length === 0;
+      const usersIds = selectUsersIds(getState());
+      return usersIds.length === 0;
     },
   }
 );
