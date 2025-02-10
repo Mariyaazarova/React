@@ -1,18 +1,24 @@
+import { useAuth } from "../auth-context/use-auth";
 import { Counter } from "../counter/counter";
 import { useForm } from "../review-form/use-form";
 import styles from "./review-form.module.css";
 
-export const ReviewForm = ({ onSubmit }) => {
+export const ReviewForm = ({ onSubmit, initialValues }) => {
+  const { auth } = useAuth();
   const { form, setText, incrementRating, decrementRating, clearForm } =
-    useForm();
+    useForm(initialValues);
 
   const { text, rating } = form;
 
-  return (
-    <div onSubmit={(e) => e.preventDefault()}>
-      <form>
-        <h3>Leave your review:</h3>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit({ text, rating, userId: auth.userId });
+  };
 
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <h3>Your review:</h3>
         <div>
           <span>Review text:</span>
           <input
@@ -33,18 +39,8 @@ export const ReviewForm = ({ onSubmit }) => {
         <button className={styles.reviewForm} type="button" onClick={clearForm}>
           Clear form
         </button>
-        <button
-          className={styles.reviewForm}
-          type="button"
-          onClick={() =>
-            onSubmit({
-              text,
-              rating,
-              userId: "a304959a-76c0-4b34-954a-b38dbf310360",
-            })
-          }
-        >
-          Send review
+        <button className={styles.reviewForm} type="submit">
+          {initialValues ? "Save changes" : "Send review"}
         </button>
       </form>
     </div>

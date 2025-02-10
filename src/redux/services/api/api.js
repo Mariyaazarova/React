@@ -37,6 +37,17 @@ export const apiSlice = createApi({
         return [{ type: "Reviews" }];
       },
     }),
+
+    updateReview: builder.mutation({
+      query: ({ reviewId, updatedReview }) => ({
+        url: `/review/${reviewId}`,
+        method: "PATCH",
+        body: updatedReview,
+      }),
+      invalidatesTags: () => {
+        return [{ type: "Reviews" }];
+      },
+    }),
   }),
 });
 
@@ -48,4 +59,5 @@ export const {
   useGetDishQuery,
   useGetUsersQuery,
   useAddReviewMutation,
+  useUpdateReviewMutation,
 } = apiSlice;

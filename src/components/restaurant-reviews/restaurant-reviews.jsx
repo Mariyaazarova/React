@@ -4,17 +4,17 @@ import styles from "./restaurant-reviews.module.css";
 import classNames from "classnames";
 import { useTheme } from "../theme-context/use-theme";
 import { useParams } from "react-router-dom";
-import { Review } from "./review";
+import { Review } from "./restaurant-review";
 import {
   useAddReviewMutation,
   useGetReviewsByRestaurantIdQuery,
   useGetUsersQuery,
+  useUpdateReviewMutation,
 } from "../../redux/services/api/api";
 import { useCallback } from "react";
 
 export const RestaurantReviews = () => {
   const { id } = useParams();
-
   const { theme } = useTheme();
   const { auth } = useAuth();
 
@@ -23,7 +23,10 @@ export const RestaurantReviews = () => {
   useGetUsersQuery();
 
   const [addReview, { isLoading: isAddReviewFetching }] =
-    useAddReviewMutation();
+    useAddReviewMutation(id);
+
+  const [updateReview, { isLoading: isUpdateReviewFetching }] =
+    useUpdateReviewMutation();
 
   const handleAddReview = useCallback(
     (review) => {
@@ -32,8 +35,19 @@ export const RestaurantReviews = () => {
     [addReview, id]
   );
 
+  const handleEditReview = useCallback(
+    (reviewId, updatedReview) => {
+      updateReview({ reviewId, updatedReview });
+    },
+    [updateReview]
+  );
+
   if (isGetReviewsFetching || isAddReviewFetching) {
-    return "...loading";
+    return "loading restaurant-reviews...";
+  }
+
+  if (isUpdateReviewFetching) {
+    return "updating restaurant-reviews...";
   }
 
   if (!data || !data.length) {
@@ -51,7 +65,13 @@ export const RestaurantReviews = () => {
         <h3>Reviews:</h3>
         <ul>
           {data.map((review) => {
-            return <Review key={review.id} review={review} />;
+            return (
+              <Review
+                key={review.id}
+                review={review}
+                handleEditReview={handleEditReview}
+              />
+            );
           })}
         </ul>
       </div>
