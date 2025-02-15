@@ -1,5 +1,10 @@
+.restaurantsPage {
+  flex: 1 0 auto;
+  margin-bottom: 50px;
+}
+
 .tabsHeader {
-  width: 100vw;
+  width: 100%;
   background-color: var(--black);
 }
 
@@ -8,7 +13,7 @@
   background-position: bottom;
   background-size: cover;
   height: 200px;
-  width: 100vw;
+  width: 100%;
 }
 
 .tabsContent {

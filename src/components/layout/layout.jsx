@@ -9,7 +9,7 @@ export const Layout = () => {
   const { auth } = useAuth();
 
   return (
-    <div>
+    <div className="mainWrapper">
       <ProgressBar />
       <Header />
       <Outlet />

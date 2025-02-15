@@ -17,7 +17,7 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const getUserName = () => {
-    return auth.isAuthorized ? auth.name : "Login";
+    return auth.isAuthorized ? auth.name : null;
   };
 
   return (

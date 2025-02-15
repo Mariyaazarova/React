@@ -18,7 +18,7 @@ export const RestaurantsPage = () => {
   }
 
   return (
-    <div>
+    <div className={styles.restaurantsPage}>
       <div className={styles.tabsImage}></div>
       <div className={styles.tabsHeader}>
         <Container>

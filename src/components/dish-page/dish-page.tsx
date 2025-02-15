@@ -25,19 +25,21 @@ export const DishPage = () => {
   }
 
   return (
-    <Container>
-      <Link to="/restaurants">Restaurants</Link>
-      <div
-        className={classNames(styles.menuCart, {
-          [styles.light]: theme === "light",
-          [styles.dark]: theme === "dark",
-        })}
-      >
-        <h2>{dish.name}</h2>
-        <div> Ingredients: {dish.ingredients}</div>
-        <p> Price: {dish.price}$</p>
-        {auth.isAuthorized && <DishCounter id={dishId} />}
-      </div>
-    </Container>
+    <main>
+      <Container>
+        <Link to="/restaurants">Restaurants</Link>
+        <div
+          className={classNames(styles.menuCart, {
+            [styles.light]: theme === "light",
+            [styles.dark]: theme === "dark",
+          })}
+        >
+          <h2>{dish.name}</h2>
+          <div> Ingredients: {dish.ingredients}</div>
+          <p> Price: {dish.price}$</p>
+          {auth.isAuthorized && <DishCounter id={dishId} />}
+        </div>
+      </Container>
+    </main>
   );
 };

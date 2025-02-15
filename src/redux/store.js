@@ -9,5 +9,5 @@ export const store = configureStore({
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiSlice.middleware).concat(createLogger()),
+    getDefaultMiddleware().concat(apiSlice.middleware, createLogger()),
 });

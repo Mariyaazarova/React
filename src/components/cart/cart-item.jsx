@@ -10,7 +10,7 @@ export const CartItem = ({ id }) => {
     data: dish,
     isLoading,
     isError,
-  } = useGetMenuByRestaurantIdQuery(undefined, {
+  } = useGetMenuByRestaurantIdQuery(id, {
     selectFromResult: (result) => ({
       ...result,
       data: result?.data?.find(({ id: restaurantId }) => restaurantId === id),

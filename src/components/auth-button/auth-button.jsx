@@ -7,7 +7,7 @@ export const AuthButton = () => {
   return (
     <div>
       <button className={styles.authButton} onClick={toggleAuth}>
-        {getUserName()}
+        {getUserName() ?? "Login"}
       </button>
     </div>
   );
