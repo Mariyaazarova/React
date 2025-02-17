@@ -13,19 +13,12 @@ export const DishPage = () => {
   const { dishId } = useParams();
   const { data: dish, isLoading, isError } = useGetDishQuery(dishId);
 
-  if (isLoading) {
-    return "loading dish-page ...";
-  }
-  if (isError) {
-    return "error dish-page...";
-  }
+  const renderContent = () => {
+    if (isLoading) return "loading dish-page ...";
+    if (isError) return "error dish-page...";
+    if (!dish) return null;
 
-  if (!dish) {
-    return null;
-  }
-
-  return (
-    <main>
+    return (
       <Container>
         <Link to="/restaurants">Restaurants</Link>
         <div
@@ -40,6 +33,8 @@ export const DishPage = () => {
           {auth.isAuthorized && <DishCounter id={dishId} />}
         </div>
       </Container>
-    </main>
-  );
+    );
+  };
+
+  return <main>{renderContent()}</main>;
 };
