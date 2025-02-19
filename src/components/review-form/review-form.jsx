@@ -1,58 +1,48 @@
+import { useAuth } from "../auth-context/use-auth";
 import { Counter } from "../counter/counter";
 import { useForm } from "../review-form/use-form";
 import styles from "./review-form.module.css";
 
-export const ReviewForm = () => {
-  const {
-    form,
-    setName,
-    setText,
-    incrementRating,
-    decrementRating,
-    clearForm,
-  } = useForm();
-  const { name, text, rating } = form;
+export const ReviewForm = ({ onSubmit, initialValues }) => {
+  const { auth } = useAuth();
+  const { form, setText, incrementRating, decrementRating, clearForm } =
+    useForm(initialValues);
+
+  const { text, rating } = form;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit({ text, rating, userId: auth.userId });
+  };
 
   return (
-    <form onSubmit={(event) => event.preventDefault()}>
-      <h3>Leave your review:</h3>
-      <div>
-        <span>Your name:</span>
-        <input
-          type="text"
-          value={name}
-          onChange={(event) => {
-            setName(event.target.value);
-          }}
-        />
-      </div>
-      <br />
-      <div>
-        <span>Review text:</span>
-        <input
-          type="text"
-          value={text}
-          onChange={(event) => {
-            setText(event.target.value);
-          }}
-        />
-      </div>
-      <br />
-      <div className={styles.reviewFormRating}>
-        <Counter
-          value={rating}
-          increment={incrementRating}
-          decrement={decrementRating}
-        />
-      </div>
-      <br />
-      <button
-        className={styles.reviewFormClear}
-        type="button"
-        onClick={clearForm}
-      >
-        Clear
-      </button>
-    </form>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <h3>Your review:</h3>
+        <div>
+          <span>Review text:</span>
+          <input
+            type="text"
+            value={text}
+            onChange={(event) => setText(event.target.value)}
+          />
+        </div>
+        <br />
+        <div className={styles.reviewFormRating}>
+          <Counter
+            value={rating}
+            increment={incrementRating}
+            decrement={decrementRating}
+          />
+        </div>
+        <br />
+        <button className={styles.reviewForm} type="button" onClick={clearForm}>
+          Clear form
+        </button>
+        <button className={styles.reviewForm} type="submit">
+          {initialValues ? "Save changes" : "Send review"}
+        </button>
+      </form>
+    </div>
   );
 };

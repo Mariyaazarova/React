@@ -1,6 +1,4 @@
 import { Container } from "../container/container";
-import { useSelector } from "react-redux";
-import { selectRestaurantById } from "../../redux/entities/restaurants/restaurants-slice";
 import classNames from "classnames";
 import styles from "./restaurant.module.css";
 import {
@@ -11,11 +9,13 @@ import {
   useParams,
 } from "react-router-dom";
 import { useEffect } from "react";
+import { useGetRestaurantByIdQuery } from "../../redux/services/api/api";
 
 export const Restaurant = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const match = useMatch("/restaurants/:id");
+  const { data, isLoading, isError } = useGetRestaurantByIdQuery(id);
 
   useEffect(() => {
     if (match) {
@@ -23,15 +23,21 @@ export const Restaurant = () => {
     }
   }, [navigate, match]);
 
-  const restaurant = useSelector((state) => selectRestaurantById(state, id));
+  if (isLoading) {
+    return "loading restaurant ...";
+  }
 
-  if (!restaurant || !restaurant.name) {
+  if (isError) {
+    return "error restaurant...";
+  }
+
+  if (!data) {
     return null;
   }
 
   return (
     <Container>
-      <h2>{restaurant.name}</h2>
+      <h2>{data.name}</h2>
       <div className={styles.restaurant}>
         <NavLink
           to={`/restaurants/${id}/menu`}

@@ -13,6 +13,7 @@ export const Cart = () => {
   if (!items.length) {
     return null;
   }
+
   return (
     <Container>
       <div
