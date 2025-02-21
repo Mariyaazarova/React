@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect } from "react";
 import { useState } from "react";
 
@@ -5,7 +7,7 @@ const getNewPercent = () => {
   return Math.floor(
     (window.scrollY /
       (document.documentElement.scrollHeight - window.innerHeight)) *
-      100,
+      100
   );
 };
 

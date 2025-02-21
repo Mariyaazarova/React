@@ -1,19 +1,20 @@
-import { Outlet } from "react-router-dom";
+"use client";
+
 import { Footer } from "../footer/footer";
 import { Header } from "../header/header";
 import { ProgressBar } from "../progress-bar/progress-bar";
-import { useAuth } from "../auth-context/use-auth";
-import { Cart } from "../cart/cart";
+/* import { useAuth } from "../auth-context/use-auth"; */
+/* import { Cart } from "../cart/cart"; */
 
-export const Layout = () => {
-  const { auth } = useAuth();
+export const Layout = ({ children }) => {
+  /*   const { auth } = useAuth(); */
 
   return (
     <div className="main-wrapper">
       <ProgressBar />
       <Header />
-      <Outlet />
-      {auth.isAuthorized && <Cart />}
+      {children}
+      {/*       {auth.isAuthorized &&  <Cart />} */}
       <Footer />
     </div>
   );

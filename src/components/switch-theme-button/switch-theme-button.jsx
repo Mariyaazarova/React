@@ -1,3 +1,5 @@
+"use client";
+
 import { useTheme } from "../theme-context/use-theme";
 import styles from "./switch-theme-button.module.css";
 import classNames from "classnames";

@@ -1,4 +1,4 @@
-import { HomePage } from "./components/home-page/home-page";
+/* import { HomePage } from "./components/home-page/home-page";
 import { Layout } from "./components/layout/layout";
 import "./app.css";
 import { Provider } from "react-redux";
@@ -48,10 +48,13 @@ const router = createBrowserRouter([
   },
 ]);
 
-export const App = () => {
+const App = () => {
   return (
     <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
   );
 };
+
+export default App;
+ */
