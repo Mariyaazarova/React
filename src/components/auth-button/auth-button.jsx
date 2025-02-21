@@ -1,3 +1,5 @@
+"use client";
+
 import { useAuth } from "../auth-context/use-auth";
 import styles from "./auth-button.module.css";
 

@@ -1,10 +1,11 @@
+"use client";
+
 import styles from "./restaurants-page.module.css";
 import { Container } from "../container/container";
-import classNames from "classnames";
-import { NavLink, Outlet } from "react-router-dom";
+import Link from "next/link";
 import { useGetRestaurantsQuery } from "../../redux/services/api/api";
 
-export const RestaurantsPage = () => {
+export const RestaurantsPage = ({ children }) => {
   const { data, isLoading, isError } = useGetRestaurantsQuery();
 
   const renderContent = () => {
@@ -19,20 +20,17 @@ export const RestaurantsPage = () => {
           <Container>
             <div className={styles.tabsContent}>
               {data.map((restaurant) => (
-                <NavLink
-                  to={`/restaurants/${restaurant.id}`}
-                  className={({ isActive }) =>
-                    classNames(styles.buttonTabs, isActive && styles.active)
-                  }
+                <Link
+                  href={`/restaurants/${restaurant.id}`}
                   key={restaurant.id}
                 >
                   {restaurant.name}
-                </NavLink>
+                </Link>
               ))}
             </div>
           </Container>
         </div>
-        <Outlet />
+        {children}
       </>
     );
   };

@@ -1,5 +1,7 @@
+"use client";
+
 import styles from "./home-page.module.css";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 export const HomePage = () => {
   return (
@@ -10,7 +12,7 @@ export const HomePage = () => {
           <p>Choose restaurant and order your favorite dishes</p>
         </div>
       </div>
-      <Link to="/restaurants" className={styles.restaurantsText}>
+      <Link href="/restaurants" className={styles.restaurantsText}>
         Restaurants
       </Link>
     </main>
