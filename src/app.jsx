@@ -1,3 +1,5 @@
+"use client";
+
 import { HomePage } from "./components/home-page/home-page";
 import { Layout } from "./components/layout/layout";
 import "./app.css";
