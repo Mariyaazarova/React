@@ -1,10 +1,11 @@
-import styles from "./restaurants-page.module.css";
-import { Container } from "../container/container";
-import classNames from "classnames";
-import { NavLink, Outlet } from "react-router-dom";
-import { useGetRestaurantsQuery } from "../../redux/services/api/api";
+"use client";
 
-export const RestaurantsPage = () => {
+import { Container } from "../../../components/container/container";
+import { useGetRestaurantsQuery } from "../../../redux/services/api/api";
+import styles from "./styles.module.css";
+import Link from "next/link";
+
+export default function RestaurantsLayout({ children }) {
   const { data, isLoading, isError } = useGetRestaurantsQuery();
 
   const renderContent = () => {
@@ -19,23 +20,21 @@ export const RestaurantsPage = () => {
           <Container>
             <div className={styles.tabsContent}>
               {data.map((restaurant) => (
-                <NavLink
-                  to={`/restaurants/${restaurant.id}`}
-                  className={({ isActive }) =>
-                    classNames(styles.buttonTabs, isActive && styles.active)
-                  }
+                <Link
+                  href={`/restaurants/${restaurant.id}/menu`}
+                  className={styles.buttonTabs}
                   key={restaurant.id}
                 >
                   {restaurant.name}
-                </NavLink>
+                </Link>
               ))}
             </div>
           </Container>
         </div>
-        <Outlet />
+        {children}
       </>
     );
   };
 
   return <main className={styles.restaurantsPage}>{renderContent()}</main>;
-};
+}

@@ -1,26 +1,26 @@
-import { ReviewForm } from "../review-form/review-form";
-import { useAuth } from "../auth-context/use-auth";
-import styles from "./restaurant-reviews.module.css";
-import classNames from "classnames";
-import { useTheme } from "../theme-context/use-theme";
-import { useParams } from "react-router-dom";
-import { Review } from "./restaurant-review";
+"use client";
+
+import { useParams } from "next/navigation";
+import { useTheme } from "../../../../../components/theme-context/use-theme";
+import { useAuth } from "../../../../../components/auth-context/use-auth";
 import {
   useAddReviewMutation,
   useGetReviewsByRestaurantIdQuery,
-  useGetUsersQuery,
   useUpdateReviewMutation,
-} from "../../redux/services/api/api";
+} from "../../../../../redux/services/api/api";
+import styles from "./styles.module.css";
+import { Review } from "../../../../../components/restaurant-reviews/restaurant-review";
+import { ReviewForm } from "../../../../../components/review-form/review-form";
 import { useCallback } from "react";
+import classNames from "classnames";
 
-export const RestaurantReviews = () => {
-  const { id } = useParams();
+export default function RestaurantReviews() {
+  const { restaurantId: id } = useParams();
   const { theme } = useTheme();
   const { auth } = useAuth();
 
   const { data, isFetching: isGetReviewsFetching } =
     useGetReviewsByRestaurantIdQuery(id);
-  useGetUsersQuery();
 
   const [addReview, { isLoading: isAddReviewFetching }] =
     useAddReviewMutation(id);
@@ -80,4 +80,4 @@ export const RestaurantReviews = () => {
       </div>
     </div>
   );
-};
+}
