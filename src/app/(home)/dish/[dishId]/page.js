@@ -1,13 +1,16 @@
-import classNames from "classnames";
-import { Link, useParams } from "react-router-dom";
-import { DishCounter } from "../dish-counter/dish-counter";
-import { useAuth } from "../auth-context/use-auth";
-import styles from "./dish-page.module.css";
-import { Container } from "../container/container";
-import { useTheme } from "../theme-context/use-theme";
-import { useGetDishQuery } from "../../redux/services/api/api";
+"use client";
 
-export const DishPage = () => {
+import { useParams } from "next/navigation";
+import { useAuth } from "../../../../components/auth-context/use-auth";
+import { useTheme } from "../../../../components/theme-context/use-theme";
+import { useGetDishQuery } from "../../../../redux/services/api/api";
+import styles from "./styles.module.css";
+import { Container } from "../../../../components/container/container";
+import Link from "next/link";
+import classNames from "classnames";
+import { DishCounter } from "../../../../components/dish-counter/dish-counter";
+
+export default function DishPage() {
   const { theme } = useTheme();
   const { auth } = useAuth();
   const { dishId } = useParams();
@@ -20,7 +23,7 @@ export const DishPage = () => {
 
     return (
       <Container>
-        <Link to="/restaurants">Restaurants</Link>
+        <Link href="/restaurants">Restaurants</Link>
         <div
           className={classNames(styles.menuCart, {
             [styles.light]: theme === "light",
@@ -37,4 +40,4 @@ export const DishPage = () => {
   };
 
   return <main>{renderContent()}</main>;
-};
+}

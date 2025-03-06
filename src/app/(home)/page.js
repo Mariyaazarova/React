@@ -1,7 +1,7 @@
-import styles from "./home-page.module.css";
-import { Link } from "react-router-dom";
+import styles from "./styles.module.css";
+import Link from "next/link";
 
-export const HomePage = () => {
+export default function HomePage() {
   return (
     <main className={styles.homePage}>
       <div className={styles.image}>
@@ -10,9 +10,9 @@ export const HomePage = () => {
           <p>Choose restaurant and order your favorite dishes</p>
         </div>
       </div>
-      <Link to="/restaurants" className={styles.restaurantsText}>
+      <Link href="/restaurants" className={styles.restaurantsText}>
         Restaurants
       </Link>
     </main>
   );
-};
+}

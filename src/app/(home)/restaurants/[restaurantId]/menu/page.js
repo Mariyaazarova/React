@@ -1,12 +1,15 @@
-import styles from "./restaurant-menu.module.css";
-import classNames from "classnames";
-import { useTheme } from "../theme-context/use-theme";
-import { Link, useParams } from "react-router-dom";
-import { useGetMenuByRestaurantIdQuery } from "../../redux/services/api/api";
+"use client";
 
-export const RestaurantMenu = () => {
+import { useParams } from "next/navigation";
+import { useTheme } from "../../../../../components/theme-context/use-theme";
+import { useGetMenuByRestaurantIdQuery } from "../../../../../redux/services/api/api";
+import styles from "./styles.module.css";
+import classNames from "classnames";
+import Link from "next/link";
+
+export default function RestaurantMenu() {
   const { theme } = useTheme();
-  const { id } = useParams();
+  const { restaurantId: id } = useParams();
   const { data, isLoading, isError } = useGetMenuByRestaurantIdQuery(id);
 
   if (isLoading) {
@@ -33,7 +36,7 @@ export const RestaurantMenu = () => {
         {data.map((dish) => (
           <div key={dish.id}>
             <h4>
-              <Link to={`/dish/${dish.id}`} className={styles.menuText}>
+              <Link href={`/dish/${dish.id}`} className={styles.menuText}>
                 {dish.name}
               </Link>
             </h4>
@@ -42,4 +45,4 @@ export const RestaurantMenu = () => {
       </div>
     </div>
   );
-};
+}

@@ -17,7 +17,7 @@
 }
 
 .image {
-  background-image: url("home-page-background-image.jpg");
+  background-image: url("./home-page-background-image.jpg");
   background-position: left;
   background-size: cover;
   height: 200px;
